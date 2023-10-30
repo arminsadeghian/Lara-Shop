@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BrandController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/admin-panel/dashboard', function () {
     return view('admin.dashboard');
+})->name('admin.dashboard');
+
+Route::prefix('admin-panel/')->name('admin.')->group(function () {
+    Route::resource('brands', BrandController::class);
 });
