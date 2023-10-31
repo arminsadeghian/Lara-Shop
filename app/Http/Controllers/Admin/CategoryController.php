@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Categories\StoreCategoryRequest;
+use App\Http\Requests\Admin\Categories\UpdateCategoryController;
 use App\Models\Attribute;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -65,14 +66,47 @@ class CategoryController extends Controller
         return view('admin.categories.show', compact('category', 'attributes'));
     }
 
-    public function edit(string $id)
+    public function edit(Category $category)
     {
-        //
+        $parentCategories = Category::where('parent_id', 0)->get();
+        $attributes = Attribute::all();
+
+        return view('admin.categories.edit', compact('category', 'parentCategories', 'attributes'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(UpdateCategoryController $request, Category $category)
     {
-        //
+        $validatedData = $request->validated();
+
+        try {
+            DB::beginTransaction();
+
+            $category->update([
+                'parent_id' => $validatedData['parent_id'],
+                'name' => $validatedData['name'],
+                'slug' => $validatedData['slug'],
+                'description' => $validatedData['description'],
+                'is_active' => $validatedData['is_active'],
+                'icon' => $validatedData['icon'],
+            ]);
+
+            $category->attributes()->detach();
+
+            foreach ($validatedData['attribute_ids'] as $attributeId) {
+                $attribute = Attribute::findOrFail($attributeId);
+                $attribute->categories()->attach($category->id, [
+                    'is_filter' => in_array($attributeId, $validatedData['attribute_is_filter_ids']) ? 1 : 0,
+                    'is_variation' => $validatedData['variation_id'] == $attributeId ? 1 : 0
+                ]);
+            }
+
+            DB::commit();
+            return back()->with('success', 'دسته بندی ویرایش شد');
+
+        } catch (Exception $e) {
+            DB::rollBack();
+            return back()->with('failed', 'دسته بندی ویرایش نشد');
+        }
     }
 
     public function destroy(string $id)
