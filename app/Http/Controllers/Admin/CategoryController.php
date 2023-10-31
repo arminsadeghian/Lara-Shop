@@ -59,9 +59,10 @@ class CategoryController extends Controller
         }
     }
 
-    public function show(string $id)
+    public function show(Category $category)
     {
-        //
+        $attributes = Attribute::all();
+        return view('admin.categories.show', compact('category', 'attributes'));
     }
 
     public function edit(string $id)
