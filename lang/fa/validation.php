@@ -95,7 +95,7 @@ return [
     ],
     'max_digits' => 'گزینه :attribute نباید بیشتر از :max رقم باشد',
     'mimes' => 'گزینه :attribute باید دارای یکی از این فرمت ها باشد: :values',
-    'mimetypes' =>  'گزینه :attribute باید دارای یکی از این فرمت ها باشد: :values',
+    'mimetypes' => 'گزینه :attribute باید دارای یکی از این فرمت ها باشد: :values',
     'min' => [
         'array' => 'گزینه :attribute باید حداقل :min آیتم داشته باشد',
         'file' => 'گزینه :attribute باید حداقل :min کیلوبایت باشد',
@@ -187,6 +187,19 @@ return [
         'last_name' => 'نام خانوادگی',
         'password' => 'رمز عبور',
         'password_confirmation' => 'تاییدیه رمز عبور',
+        'brand_id' => 'برند',
+        'tag_ids' => 'تگ',
+        'description' => 'توضیحات',
+        'category_id' => 'دسته بندی',
+        'images' => 'تصاویر',
+        'primary_image' => 'تصویر اصلی',
+        'attribute_ids' => 'ویژگی ها',
+        'variation_values' => 'متغیر',
+        'variation_values.sku.0' => 'شناسه انبار',
+        'variation_values.quantity.0' => 'تعداد محصول',
+        'variation_values.price.0' => 'قیمت متغیر',
+        'variation_values.value.0' => 'نام متغیر',
+        'delivery_amount' => 'هزینه ارسال',
     ],
 
 ];

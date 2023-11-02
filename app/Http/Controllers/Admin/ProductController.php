@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Products\StoreProductRequest;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Tag;
@@ -24,9 +25,9 @@ class ProductController extends Controller
         return view('admin.products.create', compact('brands', 'tags', 'categories'));
     }
 
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        dd($request->all());
+        $validatedData = $request->validated();
     }
 
     public function show(string $id)
