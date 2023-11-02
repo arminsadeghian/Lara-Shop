@@ -102,3 +102,17 @@ body {
 .bootstrap-select.show-tick .dropdown-menu li a span.text {
     margin-right: 10px;
 }
+
+
+// Primary image input style
+.custom-file-label::after {
+    content: "فایل"
+}
+
+.custom-file-label:after {
+    right: unset;
+    left: 0;
+    border-left: unset;
+    border-right: inherit;
+    border-radius: 0.35rem 0 0 0.35rem;
+}
