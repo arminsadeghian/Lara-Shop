@@ -26,7 +26,7 @@ return new class extends Migration {
                 ->onDelete('cascade');
 
             $table->string('value');
-            $table->boolean('is_active')->default(0);
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
     }
