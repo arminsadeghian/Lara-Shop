@@ -22,7 +22,7 @@ class StoreAttributeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|min:2|max:10'
+            'name' => 'required|string|min:2'
         ];
     }
 }
