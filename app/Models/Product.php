@@ -21,9 +21,24 @@ class Product extends Model
         ];
     }
 
+    public function getIsActiveAttribute($is_active): string
+    {
+        return $is_active == 1 ? 'فعال' : 'غیرفعال';
+    }
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'product_tag');
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
 }
