@@ -8,6 +8,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\ProductVariation;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -80,9 +81,13 @@ class ProductController extends Controller
 
     }
 
-    public function show(string $id)
+    public function show(Product $product)
     {
-        //
+        $productAttributes = $product->attributes()->with('attribute')->get();
+        $productVariations = $product->variations;
+        $productImages = $product->images;
+
+        return view('admin.products.show', compact('product', 'productAttributes', 'productVariations', 'productImages'));
     }
 
     public function edit(string $id)

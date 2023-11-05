@@ -35,7 +35,7 @@
                 @foreach($products as $key => $product)
                     <tr>
                         <td>{{ $products->firstItem() + $key }}</td>
-                        <td><img width="70px" src="{{ url('/images/products/'.$product->primary_image)  }}" alt=""></td>
+                        <td><img width="70px" src="{{ productImageUrl($product->primary_image)  }}" alt=""></td>
                         <td><a style="color: #858796;text-decoration: none;" target="_blank"
                                href="{{ route('admin.products.show', $product->id) }}">{{ $product->name }}</a></td>
                         <td>{{ $product->slug }}</td>
