@@ -5,6 +5,7 @@ require('chart.js');
 require('bootstrap-select');
 require('bootstrap-select/dist/js/i18n/defaults-fa_IR');
 require('./jquery.czMore-v1.6.0');
+require('md.bootstrappersiandatetimepicker/dist/jquery.md.bootstrap.datetimepicker');
 
 // Admin panel js codes
 (function ($) {

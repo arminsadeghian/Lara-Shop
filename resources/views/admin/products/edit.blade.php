@@ -13,6 +13,24 @@
         $('#tagSelect').selectpicker({
             'title': 'انتخاب تگ'
         });
+
+        let variations = @json($productVariations);
+        variations.forEach(variation => {
+            $(`#variationDateOnSaleFrom-${variation.id}`).MdPersianDateTimePicker({
+                targetTextSelector: $(`#variationInputDateOnSaleFrom-${variation.id}`),
+                englishNumber: true,
+                enableTimePicker: true,
+                textFormat: 'yyyy-MM-dd HH:mm'
+            });
+
+            $(`#variationDateOnSaleTo-${variation.id}`).MdPersianDateTimePicker({
+                targetTextSelector: $(`#variationInputDateOnSaleTo-${variation.id}`),
+                englishNumber: true,
+                enableTimePicker: true,
+                textFormat: 'yyyy-MM-dd HH:mm'
+            });
+        });
+
     </script>
 @endsection
 
@@ -164,19 +182,38 @@
 
                                         <div class="form-group col-md-3">
                                             <label> تاریخ شروع حراجی </label>
-                                            <input type="text"
-                                                   name="variation_values[{{ $variation->id }}][date_on_sale_from]"
-                                                   value="{{ $variation->date_on_sale_from == null ? null : verta($variation->date_on_sale_from) }}"
-                                                   class="form-control">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend order-2">
+                                                    <span class="input-group-text"
+                                                          id="variationDateOnSaleFrom-{{ $variation->id }}">
+                                                        <i class="fas fa-clock"></i>
+                                                    </span>
+                                                </div>
+                                                <input type="text"
+                                                       id="variationInputDateOnSaleFrom-{{ $variation->id }}"
+                                                       name="variation_values[{{ $variation->id }}][date_on_sale_from]"
+                                                       value="{{ $variation->date_on_sale_from == null ? null : verta($variation->date_on_sale_from) }}"
+                                                       class="form-control">
+                                            </div>
                                         </div>
 
                                         <div class="form-group col-md-3">
                                             <label> تاریخ پایان حراجی </label>
-                                            <input type="text"
-                                                   name="variation_values[{{ $variation->id }}][date_on_sale_to]"
-                                                   value="{{ $variation->date_on_sale_to == null ? null : verta($variation->date_on_sale_to) }}"
-                                                   class="form-control">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend order-2">
+                                                    <span class="input-group-text"
+                                                          id="variationDateOnSaleTo-{{ $variation->id }}">
+                                                        <i class="fas fa-clock"></i>
+                                                    </span>
+                                                </div>
+                                                <input type="text"
+                                                       id="variationInputDateOnSaleTo-{{ $variation->id }}"
+                                                       name="variation_values[{{ $variation->id }}][date_on_sale_to]"
+                                                       value="{{ $variation->date_on_sale_to == null ? null : verta($variation->date_on_sale_to) }}"
+                                                       class="form-control">
+                                            </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
