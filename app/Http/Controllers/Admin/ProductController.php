@@ -105,6 +105,33 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product)
     {
         $validatedData = $request->validated();
+
+        try {
+            DB::beginTransaction();
+
+            $product->update([
+                'brand_id' => $validatedData['brand_id'],
+                'name' => $validatedData['name'],
+                'description' => $validatedData['description'],
+                'is_active' => $validatedData['is_active'],
+                'delivery_amount' => $validatedData['delivery_amount'],
+                'delivery_amount_per_product' => $validatedData['delivery_amount_per_product'],
+            ]);
+
+            $productAttributeController = new ProductAttributeController();
+            $productAttributeController->update($validatedData['attribute_values']);
+
+            $productVariationController = new ProductVariationController();
+            $productVariationController->update($validatedData['variation_values']);
+
+            $product->tags()->sync($validatedData['tag_ids']);
+
+            DB::commit();
+
+            return back()->with('success', 'محصول مورد نظر با موفقیت ویرایش شد');
+        } catch (\Exception $e) {
+            return back()->with('failed', 'مشکلی در ویرایش محصول به وجود آمده، لطفا دوباره تلاش کنید!');
+        }
     }
 
     public function destroy(string $id)
