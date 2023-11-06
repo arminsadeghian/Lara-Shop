@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
+use Illuminate\Http\Request;
 
 class ProductImageController extends Controller
 {
@@ -28,6 +30,22 @@ class ProductImageController extends Controller
         return [
             'imagesFileName' => $imagesFileName,
         ];
+    }
+
+    public function edit(Product $product)
+    {
+        $productImages = $product->images;
+        return view('admin.products.edit_images', compact('product', 'productImages'));
+    }
+
+    public function setPrimary(Request $request)
+    {
+        dd($request->all());
+    }
+
+    public function destroy(Request $request)
+    {
+        dd($request->all());
     }
 
     private function fileNameToHash($name): string
