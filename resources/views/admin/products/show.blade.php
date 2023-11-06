@@ -99,7 +99,7 @@
                                     <div class="form-group col-md-3">
                                         <label> قیمت </label>
                                         <input type="text" disabled class="form-control"
-                                               value="{{ $variation->price }}">
+                                               value="{{ number_format($variation->price) }}">
                                     </div>
 
                                     <div class="form-group col-md-3">
