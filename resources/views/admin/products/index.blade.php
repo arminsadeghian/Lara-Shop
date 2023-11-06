@@ -55,7 +55,7 @@
                                 </button>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item text-right"
-                                       href="#">ویرایش محصول</a>
+                                       href="{{ route('admin.products.edit', $product->id) }}">ویرایش محصول</a>
                                     <a class="dropdown-item text-right"
                                        href="#">ویرایش تصاویر</a>
                                     <a class="dropdown-item text-right"

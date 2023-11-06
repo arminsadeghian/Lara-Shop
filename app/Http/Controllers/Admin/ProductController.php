@@ -90,14 +90,20 @@ class ProductController extends Controller
         return view('admin.products.show', compact('product', 'productAttributes', 'productVariations', 'productImages'));
     }
 
-    public function edit(string $id)
+    public function edit(Product $product)
     {
-        //
+        $brands = Brand::all();
+        $tags = Tag::all();
+        $categories = Category::where('parent_id', '!=', 0)->get();
+        $productAttributes = $product->attributes()->with('attribute')->get();
+        $productVariations = $product->variations;
+
+        return view('admin.products.edit', compact('product', 'brands', 'tags', 'categories', 'productAttributes', 'productVariations'));
     }
 
     public function update(Request $request, string $id)
     {
-        //
+        dd($request->all());
     }
 
     public function destroy(string $id)
