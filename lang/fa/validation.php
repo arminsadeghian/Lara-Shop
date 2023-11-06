@@ -200,6 +200,10 @@ return [
         'variation_values.price.0' => 'قیمت متغیر',
         'variation_values.value.0' => 'نام متغیر',
         'delivery_amount' => 'هزینه ارسال',
+        'variation_values.*.quantity' => 'تعداد محصول',
+        'variation_values.*.sku' => 'شناسه انبار',
+        'variation_values.*.price' => 'قیمت محصول',
+        'attribute_values.*' => 'ویژگی ها',
     ],
 
 ];

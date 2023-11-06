@@ -44,6 +44,8 @@
             </div>
             <hr>
 
+            @include('errors.message')
+
             <form action="{{ route('admin.products.update', $product->id) }}" method="post">
                 @csrf
                 @method('put')

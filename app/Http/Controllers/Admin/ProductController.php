@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Products\StoreProductRequest;
+use App\Http\Requests\Admin\Products\UpdateProductRequest;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -101,9 +102,9 @@ class ProductController extends Controller
         return view('admin.products.edit', compact('product', 'brands', 'tags', 'categories', 'productAttributes', 'productVariations'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        dd($request->all());
+        $validatedData = $request->validated();
     }
 
     public function destroy(string $id)
