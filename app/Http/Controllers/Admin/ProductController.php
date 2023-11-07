@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Products\StoreProductRequest;
+use App\Http\Requests\Admin\Products\UpdateProductCategoryRequest;
 use App\Http\Requests\Admin\Products\UpdateProductRequest;
 use App\Models\Brand;
 use App\Models\Category;
@@ -138,4 +139,41 @@ class ProductController extends Controller
     {
         //
     }
+
+    public function editCategory(Product $product)
+    {
+        $categories = Category::where('parent_id', '!=', 0)->get();
+        return view('admin.products.edit_category', compact('product', 'categories'));
+    }
+
+    public function updateCategory(UpdateProductCategoryRequest $request, Product $product)
+    {
+        $validatedData = $request->validated();
+
+        try {
+            DB::beginTransaction();
+
+            $product->update([
+                'category_id' => $validatedData['category_id'],
+            ]);
+
+            $productAttributeController = new ProductAttributeController();
+            $productAttributeController->change($validatedData['attribute_ids'], $product);
+
+            $category = Category::find($validatedData['category_id']);
+            $productVariationController = new ProductVariationController();
+            $productVariationController->change(
+                $validatedData['variation_values'],
+                $category->attributes()->wherePivot('is_variation', 1)->first()->id,
+                $product
+            );
+
+            DB::commit();
+
+            return back()->with('success', 'دسته بندی مورد نظر ویرایش شد');
+        } catch (\Exception $e) {
+            return back()->with('failed', 'مشکلی در ویرایش دسته بندی به وجود آمده، لطفا دوباره تلاش کنید!');
+        }
+    }
+
 }

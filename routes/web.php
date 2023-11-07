@@ -33,15 +33,13 @@ Route::prefix('admin-panel/')->name('admin.')->group(function () {
     // Get category attributes
     Route::get('/category-attributes/{category}', [CategoryController::class, 'getCategoryAttributes']);
 
-    // Edit product image
+    // Edit product images
     Route::get('/products/{product}/images-edit', [ProductImageController::class, 'edit'])->name('products.images.edit');
-
-    // Destroy product image
     Route::delete('/products/{product}/images-destroy', [ProductImageController::class, 'destroy'])->name('products.images.destroy');
-
-    // Set primary image
     Route::put('/products/{product}/images-set-primary', [ProductImageController::class, 'setPrimary'])->name('products.images.set_primary');
-
-    // Set primary image
     Route::put('/products/{product}/images-add', [ProductImageController::class, 'add'])->name('products.images.add');
+
+    // Edit product category
+    Route::get('/products/{product}/category-edit', [ProductController::class, 'editCategory'])->name('products.category.edit');
+    Route::put('/products/{product}/category-update', [ProductController::class, 'updateCategory'])->name('products.category.update');
 });
