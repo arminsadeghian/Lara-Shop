@@ -120,7 +120,11 @@ body {
     border-radius: 0.35rem 0 0 0.35rem;
 }
 
-
 .mds-bootstrap-persian-datetime-picker-popover {
     max-width: fit-content;
+}
+
+#banners-list > tbody > tr > td {
+    height: 50px !important;
+    line-height: 50px !important;
 }
