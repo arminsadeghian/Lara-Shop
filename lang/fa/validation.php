@@ -204,6 +204,7 @@ return [
         'variation_values.*.sku' => 'شناسه انبار',
         'variation_values.*.price' => 'قیمت محصول',
         'attribute_values.*' => 'ویژگی ها',
+        'type' => 'نوع بنر',
     ],
 
 ];
