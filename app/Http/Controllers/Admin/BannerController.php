@@ -41,9 +41,9 @@ class BannerController extends Controller
         return back()->with('success', 'بنر مورد نظر ایجاد شد');
     }
 
-    public function show(string $id)
+    public function show(Banner $banner)
     {
-        //
+        return view('admin.banners.show', compact('banner'));
     }
 
     public function edit(string $id)

@@ -5,6 +5,11 @@ function productImageUrl($image)
     return url('/images/products/' . $image);
 }
 
+function bannerImageUrl($image)
+{
+    return url('/images/banners/' . $image);
+}
+
 function convertShamsiToGregorianDate($date)
 {
     if ($date == null) {
