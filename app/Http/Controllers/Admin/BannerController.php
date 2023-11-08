@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Banners\StoreBannerRequest;
+use App\Models\Banner;
 use Illuminate\Http\Request;
 
 class BannerController extends Controller
@@ -17,9 +19,26 @@ class BannerController extends Controller
         return view('admin.banners.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreBannerRequest $request)
     {
-        dd($request->all());
+        $validatedData = $request->validated();
+
+        $imageFileName = fileNameToHash($validatedData['image']->getClientOriginalName());
+        $validatedData['image']->move(public_path('\images\banners'), $imageFileName);
+
+        Banner::create([
+            'image' => $imageFileName,
+            'title' => $validatedData['title'],
+            'text' => $validatedData['text'],
+            'priority' => $validatedData['priority'],
+            'is_active' => $validatedData['is_active'],
+            'type' => $validatedData['type'],
+            'button_text' => $validatedData['button_text'],
+            'button_link' => $validatedData['button_link'],
+            'button_icon' => $validatedData['button_icon'],
+        ]);
+
+        return back()->with('success', 'بنر مورد نظر ایجاد شد');
     }
 
     public function show(string $id)

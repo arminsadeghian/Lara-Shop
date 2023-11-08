@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Products\DeleteProductImageRequest;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
@@ -12,7 +11,7 @@ class ProductImageController extends Controller
 {
     public function upload($primaryImage): array
     {
-        $primaryImageFileName = $this->fileNameToHash($primaryImage->getClientOriginalName());
+        $primaryImageFileName = fileNameToHash($primaryImage->getClientOriginalName());
         $primaryImage->move(public_path('\images\products'), $primaryImageFileName);
 
         return [
@@ -24,7 +23,7 @@ class ProductImageController extends Controller
     {
         $imagesFileName = [];
         foreach ($images as $image) {
-            $imageFileName = $this->fileNameToHash($image->getClientOriginalName());
+            $imageFileName = fileNameToHash($image->getClientOriginalName());
             $image->move(public_path('\images\products'), $imageFileName);
             $imagesFileName[] = $imageFileName;
         }
@@ -64,7 +63,7 @@ class ProductImageController extends Controller
         }
 
         if ($request->has('primary_image')) {
-            $primaryImageFileName = $this->fileNameToHash($validatedData['primary_image']->getClientOriginalName());
+            $primaryImageFileName = fileNameToHash($validatedData['primary_image']->getClientOriginalName());
             $validatedData['primary_image']->move(public_path('\images\products'), $primaryImageFileName);
             $product->update([
                 'primary_image' => $primaryImageFileName
@@ -73,7 +72,7 @@ class ProductImageController extends Controller
 
         if ($request->has('images')) {
             foreach ($validatedData['images'] as $image) {
-                $imageFileName = $this->fileNameToHash($image->getClientOriginalName());
+                $imageFileName = fileNameToHash($image->getClientOriginalName());
                 $image->move(public_path('\images\products'), $imageFileName);
                 ProductImage::create([
                     'product_id' => $product->id,
@@ -92,13 +91,6 @@ class ProductImageController extends Controller
         ]);
         ProductImage::destroy($validatedData['image_id']);
         return back()->with('success', 'تصویر مورد نظر حذف شد');
-    }
-
-    private function fileNameToHash($name): string
-    {
-        $explodedFileName = explode('.', $name);
-        $fileExtension = strtolower(end($explodedFileName));
-        return sha1(time() . rand(1111, 9999)) . '.' . $fileExtension;
     }
 
 }

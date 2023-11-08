@@ -39,7 +39,7 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label for="priority">اولویت</label>
-                        <input class="form-control" id="priority" name="priority" type="text">
+                        <input class="form-control" id="priority" name="priority" type="number">
                     </div>
                     <div class="form-group col-md-3">
                         <label for="is_active">وضعیت</label>
