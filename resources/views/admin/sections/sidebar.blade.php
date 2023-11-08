@@ -53,6 +53,18 @@
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        تنظیمات
+    </div>
+
+    <!-- Nav Item - Brands -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.banners.index') }}">
+            <i class="fas fa-image"></i>
+            <span> بنر ها </span></a>
+    </li>
+
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
