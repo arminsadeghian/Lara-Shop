@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-lg-4 col-md-3 col-12">
                     <div class="payment-mathod pb-20">
-                        <a href="#"><img src="{{ asset('/images/payment.png') }}" alt=""/></a>
+                        <img src="{{ asset('/images/payment.png') }}" alt=""/>
                     </div>
                 </div>
             </div>
