@@ -115,36 +115,47 @@
                                     <div class="ht-product-content">
                                         <div class="ht-product-content-inner">
                                             <div class="ht-product-categories">
-                                                <a href="{{ $product->category->slug }}">{{ $product->category->name }}</a>
+                                                <a href="{{ $product->category->slug }}">{{ $product->category->name }} {{ $product->category->parent->name }}</a>
                                             </div>
                                             <h4 class="ht-product-title text-right">
                                                 <a href="{{ $product->slug }}">{{ $product->name }}</a>
                                             </h4>
                                             <div class="ht-product-price">
-                                                <span class="new">
-                                                  55,000
-                                                  تومان
-                                                </span>
-                                                <span class="old">
-                                                  75,000
-                                                  تومان
-                                                </span>
+                                                @if($product->quantity_check)
+                                                    @if($product->sale_check)
+                                                        <span class="new">
+                                                            {{ number_format($product->sale_check->sale_price) }}
+                                                            تومان
+                                                        </span>
+                                                        <span class="old">
+                                                            {{ number_format($product->sale_check->price) }}
+                                                            تومان
+                                                        </span>
+                                                    @else
+                                                        <span class="new">
+                                                            {{ number_format($product->price_check->price) }}
+                                                            تومان
+                                                        </span>
+                                                    @endif
+                                                @else
+                                                    <p class="font-weight-bold">ناموجود</p>
+                                                @endif
                                             </div>
                                             <div class="ht-product-ratting-wrap">
-                        <span class="ht-product-ratting">
-                          <span class="ht-product-user-ratting" style="width: 100%;">
-                            <i class="sli sli-star"></i>
-                            <i class="sli sli-star"></i>
-                            <i class="sli sli-star"></i>
-                            <i class="sli sli-star"></i>
-                            <i class="sli sli-star"></i>
-                          </span>
-                          <i class="sli sli-star"></i>
-                          <i class="sli sli-star"></i>
-                          <i class="sli sli-star"></i>
-                          <i class="sli sli-star"></i>
-                          <i class="sli sli-star"></i>
-                        </span>
+                                            <span class="ht-product-ratting">
+                                              <span class="ht-product-user-ratting" style="width: 100%;">
+                                                <i class="sli sli-star"></i>
+                                                <i class="sli sli-star"></i>
+                                                <i class="sli sli-star"></i>
+                                                <i class="sli sli-star"></i>
+                                                <i class="sli sli-star"></i>
+                                              </span>
+                                              <i class="sli sli-star"></i>
+                                              <i class="sli sli-star"></i>
+                                              <i class="sli sli-star"></i>
+                                              <i class="sli sli-star"></i>
+                                              <i class="sli sli-star"></i>
+                                            </span>
                                             </div>
                                         </div>
 
