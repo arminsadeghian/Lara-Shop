@@ -11,6 +11,7 @@ class HomeController extends Controller
     {
         $parentCategories = Category::where('parent_id', 0)->get();
         $sliders = Banner::where('type', 'slider')->where('is_active', 1)->orderBy('priority')->get();
-        return view('front.index', compact('parentCategories', 'sliders'));
+        $indexTopBanners = Banner::where('type', 'index-top')->where('is_active', 1)->orderBy('priority')->get();
+        return view('front.index', compact('parentCategories', 'sliders', 'indexTopBanners'));
     }
 }
