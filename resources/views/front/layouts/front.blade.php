@@ -27,6 +27,8 @@
 <script src="{{ asset('/js/front/plugins.js') }}"></script>
 <script src="{{ asset('/js/front.js') }}"></script>
 
+@yield('scripts')
+
 </body>
 
 </html>

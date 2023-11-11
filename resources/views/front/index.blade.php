@@ -4,6 +4,42 @@
     صفحه اصلی
 @endsection
 
+@section('scripts')
+    <script>
+        $('.variation-select').on('change', function () {
+            let variation = JSON.parse(this.value);
+            let variationPriceDiv = $('.variation-price');
+            variationPriceDiv.empty();
+
+            if (variation.is_sale == 1) {
+                let spanSale = $('<span/>', {
+                    class: 'new',
+                    text: toPersianNum(number_format(variation.sale_price)) + ' تومان '
+                });
+                let spanPrice = $('<span/>', {
+                    class: 'old',
+                    text: toPersianNum(number_format(variation.price)) + ' تومان '
+                });
+
+                variationPriceDiv.append(spanSale);
+                variationPriceDiv.append(spanPrice);
+
+            } else {
+                let spanPrice = $('<span/>', {
+                    class: 'new',
+                    text: toPersianNum(number_format(variation.price)) + ' تومان '
+                });
+
+                variationPriceDiv.append(spanPrice);
+            }
+
+            $('.quantity-input').attr('data-max', variation.quantity);
+            $('.quantity-input').val(1);
+
+        });
+    </script>
+@endsection
+
 @section('content')
     <div class="slider-area section-padding-1">
         <div class="slider-active owl-carousel nav-style-1">
@@ -93,7 +129,8 @@
                                         <div class="ht-product-action">
                                             <ul>
                                                 <li>
-                                                    <a href="#" data-toggle="modal" data-target="#exampleModal"><i
+                                                    <a href="#" data-toggle="modal"
+                                                       data-target="#prodcutModal-{{ $product->id }}"><i
                                                             class="sli sli-magnifier"></i><span
                                                             class="ht-product-action-tooltip"> مشاهده سریع</span></a>
                                                 </li>
@@ -658,137 +695,160 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">x</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-7 col-sm-12 col-xs-12" style="direction: rtl;">
-                            <div class="product-details-content quickview-content">
-                                <h2 class="text-right mb-4">لورم ایپسوم</h2>
-                                <div class="product-details-price">
-                    <span>
-                      50,000
-                      تومان
-                    </span>
-                                    <span class="old">
-                      75,000
-                      تومان
-                    </span>
-                                </div>
-                                <div class="pro-details-rating-wrap">
-                                    <div class="pro-details-rating">
-                                        <i class="sli sli-star yellow"></i>
-                                        <i class="sli sli-star yellow"></i>
-                                        <i class="sli sli-star yellow"></i>
-                                        <i class="sli sli-star"></i>
-                                        <i class="sli sli-star"></i>
+    @foreach($products as $product)
+        <div class="modal fade" id="prodcutModal-{{ $product->id }}" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">x</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-7 col-sm-12 col-xs-12" style="direction: rtl;">
+                                <div class="product-details-content quickview-content">
+                                    <h2 class="text-right mb-4">{{ $product->name }}</h2>
+                                    <div class="product-details-price variation-price">
+                                        @if($product->quantity_check)
+                                            @if($product->sale_check)
+                                                <span class="new">
+                                                     {{ number_format($product->sale_check->sale_price) }}
+                                                     تومان
+                                                </span>
+                                                <span class="old">
+                                                      {{ number_format($product->sale_check->price) }}
+                                                      تومان
+                                                </span>
+                                            @else
+                                                <span class="new">
+                                                      {{ number_format($product->price_check->price) }}
+                                                      تومان
+                                                </span>
+                                            @endif
+                                        @else
+                                            <p class="font-weight-bold">ناموجود</p>
+                                        @endif
                                     </div>
-                                    <span>3 دیدگاه</span>
-                                </div>
-                                <p class="text-right">
-                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                    گرافیک است. چاپگرها
-                                    و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است
-                                </p>
-                                <div class="pro-details-list text-right">
-                                    <ul class="text-right">
-                                        <li>- لورم ایپسوم</li>
-                                        <li>- لورم ایپسوم متن ساختگی</li>
-                                        <li>- لورم ایپسوم متن</li>
-                                    </ul>
-                                </div>
-                                <div class="pro-details-size-color text-right">
-                                    <div class="pro-details-size">
-                                        <span>سایز</span>
-                                        <div class="pro-details-size-content">
-                                            <ul>
-                                                <li><a href="#">s</a></li>
-                                                <li><a href="#">m</a></li>
-                                                <li><a href="#">l</a></li>
-                                                <li><a href="#">xl</a></li>
-                                                <li><a href="#">xxl</a></li>
-                                            </ul>
+                                    <div class="pro-details-rating-wrap">
+                                        <div class="pro-details-rating">
+                                            <i class="sli sli-star yellow"></i>
+                                            <i class="sli sli-star yellow"></i>
+                                            <i class="sli sli-star yellow"></i>
+                                            <i class="sli sli-star"></i>
+                                            <i class="sli sli-star"></i>
                                         </div>
+                                        <span>3 دیدگاه</span>
+                                    </div>
+                                    <p class="text-right">{{ $product->description }}</p>
+                                    <div class="pro-details-list text-right">
+                                        <ul class="text-right">
+                                            @foreach($product->attributes()->with('attribute')->get() as $attribute)
+                                                <li>-
+                                                    {{ $attribute->attribute->name }}
+                                                    :
+                                                    {{ $attribute->value }}
+                                                </li>
+                                            @endforeach
+                                        </ul>
                                     </div>
 
-                                </div>
-                                <div class="pro-details-quality">
-                                    <div class="cart-plus-minus">
-                                        <input class="cart-plus-minus-box" type="text" name="qtybutton" value="2"/>
+                                    @if($product->quantity_check)
+
+                                        @php
+                                            if ($product->sale_check){
+                                                $productVariationSelected = $product->sale_check;
+                                            }else{
+                                                $productVariationSelected = $product->price_check;
+                                            }
+                                        @endphp
+
+                                        <div class="pro-details-size-color text-right">
+                                            <div class="pro-details-size w-25">
+                                                <span>{{ App\Models\Attribute::find($product->variations->first()->attribute_id)->name }}</span>
+                                                <div class="pro-details-size-content">
+                                                    <select class="form-control variation-select">
+                                                        @foreach($product->variations()->where('quantity', '>', 0)->get() as $variation)
+                                                            <option
+                                                                value="{{ json_encode($variation->only(['id','quantity','is_sale','sale_price','price'])) }}"
+                                                                {{ $productVariationSelected->id == $variation->id ? 'selected' : '' }}
+                                                            >{{ $variation->value }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pro-details-quality">
+                                            <div class="cart-plus-minus">
+                                                <input class="cart-plus-minus-box quantity-input" type="text"
+                                                       name="qtybutton"
+                                                       value="1" data-max="5"/>
+                                            </div>
+                                            <div class="pro-details-cart">
+                                                <a href="#">افزودن به سبد خرید</a>
+                                            </div>
+                                            <div class="pro-details-wishlist">
+                                                <a title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
+                                            </div>
+                                            <div class="pro-details-compare">
+                                                <a title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    <div class="pro-details-meta">
+                                        <span>دسته بندی :</span>
+                                        <ul>
+                                            <li><a href="#">{{ $product->category->parent->name }},</a></li>
+                                            <li><a href="#">{{ $product->category->name }}</a></li>
+                                        </ul>
                                     </div>
-                                    <div class="pro-details-cart">
-                                        <a href="#">افزودن به سبد خرید</a>
+                                    <div class="pro-details-meta">
+                                        <span>تگ ها :</span>
+                                        <ul>
+                                            @foreach($product->tags as $tag)
+                                                <li><a href="#">{{ $tag->name }}{{ $loop->last ? '' : '،' }}</a></li>
+                                            @endforeach
+                                        </ul>
                                     </div>
-                                    <div class="pro-details-wishlist">
-                                        <a title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
-                                    </div>
-                                    <div class="pro-details-compare">
-                                        <a title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
-                                    </div>
-                                </div>
-                                <div class="pro-details-meta">
-                                    <span>دسته بندی :</span>
-                                    <ul>
-                                        <li><a href="#">مردانه,</a></li>
-                                        <li><a href="#">پالتو</a></li>
-                                    </ul>
-                                </div>
-                                <div class="pro-details-meta">
-                                    <span>تگ ها :</span>
-                                    <ul>
-                                        <li><a href="#">لباس, </a></li>
-                                        <li><a href="#">Furniture,</a></li>
-                                        <li><a href="#">Electronic</a></li>
-                                    </ul>
                                 </div>
                             </div>
+
+                            <div class="col-md-5 col-sm-12 col-xs-12">
+                                <div class="tab-content quickview-big-img">
+                                    <div id="pro-primary-{{ $product->id }}" class="tab-pane fade show active">
+                                        <img src="{{ productImageUrl($product->primary_image) }}"
+                                             alt="{{ $product->name }}"/>
+                                    </div>
+                                    @foreach($product->images as $image)
+                                        <div id="pro-{{ $image->id }}" class="tab-pane fade">
+                                            <img src="{{ productImageUrl($image->image) }}" alt="{{ $product->name }}"/>
+                                        </div>
+                                    @endforeach
+                                </div>
+
+                                <div class="quickview-wrap mt-15">
+                                    <div class="quickview-slide-active owl-carousel nav nav-style-2" role="tablist">
+                                        <a class="active" data-toggle="tab" href="#pro-primary-{{ $product->id }}">
+                                            <img src="{{ productImageUrl($product->primary_image) }}"
+                                                 alt="{{ $product->name }}"/>
+                                        </a>
+                                        @foreach($product->images as $image)
+                                            <a data-toggle="tab" href="#pro-{{ $image->id }}">
+                                                <img src="{{ productImageUrl($image->image) }}"
+                                                     alt="{{ $product->name }}"/>
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                </div>
+
+                            </div>
+
                         </div>
-
-                        <div class="col-md-5 col-sm-12 col-xs-12">
-                            <div class="tab-content quickview-big-img">
-                                <div id="pro-1" class="tab-pane fade show active">
-                                    <img src="assets/img/product/quickview-l1.svg" alt=""/>
-                                </div>
-                                <div id="pro-2" class="tab-pane fade">
-                                    <img src="assets/img/product/quickview-l2.svg" alt=""/>
-                                </div>
-                                <div id="pro-3" class="tab-pane fade">
-                                    <img src="assets/img/product/quickview-l3.svg" alt=""/>
-                                </div>
-                                <div id="pro-4" class="tab-pane fade">
-                                    <img src="assets/img/product/quickview-l2.svg" alt=""/>
-                                </div>
-                            </div>
-                            <!-- Thumbnail Large Image End -->
-                            <!-- Thumbnail Image End -->
-                            <div class="quickview-wrap mt-15">
-                                <div class="quickview-slide-active owl-carousel nav nav-style-2" role="tablist">
-                                    <a class="active" data-toggle="tab" href="#pro-1"><img
-                                            src="assets/img/product/quickview-s1.svg"
-                                            alt=""/></a>
-                                    <a data-toggle="tab" href="#pro-2"><img
-                                            src="assets/img/product/quickview-s2.svg"
-                                            alt=""/></a>
-                                    <a data-toggle="tab" href="#pro-3"><img
-                                            src="assets/img/product/quickview-s3.svg"
-                                            alt=""/></a>
-                                    <a data-toggle="tab" href="#pro-4"><img
-                                            src="assets/img/product/quickview-s2.svg"
-                                            alt=""/></a>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endforeach
     <!-- Modal end -->
 @endsection
