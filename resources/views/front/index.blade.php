@@ -178,21 +178,11 @@
                                                     <p class="font-weight-bold">ناموجود</p>
                                                 @endif
                                             </div>
-                                            <div class="ht-product-ratting-wrap">
-                                            <span class="ht-product-ratting">
-                                              <span class="ht-product-user-ratting" style="width: 100%;">
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                                <i class="sli sli-star"></i>
-                                              </span>
-                                              <i class="sli sli-star"></i>
-                                              <i class="sli sli-star"></i>
-                                              <i class="sli sli-star"></i>
-                                              <i class="sli sli-star"></i>
-                                              <i class="sli sli-star"></i>
-                                            </span>
+                                            <div class="ht-product-ratting-wrap mt-4">
+                                                <div data-rating-stars="5"
+                                                     data-rating-readonly="true"
+                                                     data-rating-value="{{ ceil($product->rates->avg('rate')) }}">
+                                                </div>
                                             </div>
                                         </div>
 
@@ -731,13 +721,11 @@
                                         @endif
                                     </div>
                                     <div class="pro-details-rating-wrap">
-                                        <div class="pro-details-rating">
-                                            <i class="sli sli-star yellow"></i>
-                                            <i class="sli sli-star yellow"></i>
-                                            <i class="sli sli-star yellow"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
+                                        <div data-rating-stars="5"
+                                             data-rating-readonly="true"
+                                             data-rating-value="{{ ceil($product->rates->avg('rate')) }}">
                                         </div>
+                                        <span style="margin: 0 10px">|</span>
                                         <span>3 دیدگاه</span>
                                     </div>
                                     <p class="text-right">{{ $product->description }}</p>
