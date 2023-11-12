@@ -22,8 +22,12 @@
 
                                 <li class="angle-shape">
                                     <a href="#"> فروشگاه </a>
-                                    <ul class="mega-menu">
 
+                                    @php
+                                        $parentCategories = App\Models\Category::where('parent_id', 0)->get();
+                                    @endphp
+
+                                    <ul class="mega-menu">
                                         @foreach($parentCategories as $parentCategory)
                                             <li>
                                                 <a class="menu-title" href="#">{{ $parentCategory->name }}</a>
@@ -31,7 +35,7 @@
                                                 @foreach($parentCategory->children as $category)
                                                     <ul>
                                                         <li>
-                                                            <a href="{{ $category->slug }}">{{ $category->name }}</a>
+                                                            <a href="{{ route('home.categories.show', $category->slug) }}">{{ $category->name }}</a>
                                                         </li>
                                                     </ul>
                                                 @endforeach

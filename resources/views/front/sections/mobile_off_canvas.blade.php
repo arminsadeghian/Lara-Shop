@@ -24,6 +24,11 @@
                         </li>
                         <li class="menu-item-has-children">
                             <a href="#">فروشگاه</a>
+
+                            @php
+                                $parentCategories = App\Models\Category::where('parent_id', 0)->get();
+                            @endphp
+
                             <ul class="dropdown">
 
                                 @foreach($parentCategories as $parentCategory)
@@ -33,7 +38,7 @@
                                         @foreach($parentCategory->children as $category)
                                             <ul class="dropdown">
                                                 <li>
-                                                    <a href="{{ $category->slug }}">{{ $category->name }}</a>
+                                                    <a href="{{ route('home.categories.show', $category->slug) }}">{{ $category->name }}</a>
                                                 </li>
                                             </ul>
                                         @endforeach
