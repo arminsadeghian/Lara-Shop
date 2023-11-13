@@ -79,100 +79,54 @@
                         <div class="sidebar-widget">
                             <h4 class="pro-sidebar-title"> دسته بندی </h4>
                             <div class="sidebar-widget-list mt-30">
+
                                 <ul>
-                                    <li>
-                                        مردانه
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            پیراهن
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            تی شرت
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            پالتو
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            لباس راحتی
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            لباس راحتی
-                                        </a>
-                                    </li>
+                                    <li>{{ $category->parent->name }}</li>
+                                    @foreach($category->parent->children as $childCategory)
+                                        <li>
+                                            <a href="{{ route('home.categories.show', $childCategory->slug) }}"
+                                               style="{{ $childCategory->slug == $category->slug ? 'font-weight: bold;color: #ff3535' : ''}}">
+                                                {{ $childCategory->name }}
+                                            </a>
+                                        </li>
+                                    @endforeach
                                 </ul>
+
                             </div>
                         </div>
                         <hr>
 
-                        <div class="sidebar-widget mt-30">
-                            <h4 class="pro-sidebar-title">رنگ </h4>
-                            <div class="sidebar-widget-list mt-20">
-                                <ul>
-                                    <li>
-                                        <div class="sidebar-widget-list-left">
-                                            <input type="checkbox" value=""> <a href="#">سبز </a>
-                                            <span class="checkmark"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="sidebar-widget-list-left">
-                                            <input type="checkbox" value=""> <a href="#">کرم </a>
-                                            <span class="checkmark"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="sidebar-widget-list-left">
-                                            <input type="checkbox" value=""> <a href="#">آبی </a>
-                                            <span class="checkmark"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="sidebar-widget-list-left">
-                                            <input type="checkbox" value=""> <a href="#">مشکی </a>
-                                            <span class="checkmark"></span>
-                                        </div>
-                                    </li>
-                                </ul>
+                        @foreach($attributes as $attribute)
+                            <div class="sidebar-widget mt-30">
+                                <h4 class="pro-sidebar-title">{{ $attribute->name }}</h4>
+                                <div class="sidebar-widget-list mt-20">
+                                    <ul>
+                                        @foreach($attribute->values as $value)
+                                            <li>
+                                                <div class="sidebar-widget-list-left">
+                                                    <input type="checkbox" value=""><a href="#">{{ $value->value }}</a>
+                                                    <span class="checkmark"></span>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-                        <hr>
+                            <hr>
+                        @endforeach
+
                         <div class="sidebar-widget mt-30">
-                            <h4 class="pro-sidebar-title">سایز </h4>
+                            <h4 class="pro-sidebar-title"> {{ $variation->name }} </h4>
                             <div class="sidebar-widget-list mt-20">
                                 <ul>
-                                    <li>
-                                        <div class="sidebar-widget-list-left">
-                                            <input type="checkbox" value=""> <a href="#">XL </a>
-                                            <span class="checkmark"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="sidebar-widget-list-left">
-                                            <input type="checkbox" value=""> <a href="#">L </a>
-                                            <span class="checkmark"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="sidebar-widget-list-left">
-                                            <input type="checkbox" value=""> <a href="#">SM </a>
-                                            <span class="checkmark"></span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="sidebar-widget-list-left">
-                                            <input type="checkbox" value=""> <a href="#">XXL </a>
-                                            <span class="checkmark"></span>
-                                        </div>
-                                    </li>
+                                    @foreach($variation->variationValues as $value)
+                                        <li>
+                                            <div class="sidebar-widget-list-left">
+                                                <input type="checkbox" value=""><a href="#">{{ $value->value }}</a>
+                                                <span class="checkmark"></span>
+                                            </div>
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -220,7 +174,8 @@
                                                                 <a href="#" data-toggle="modal"
                                                                    data-target="#prodcutModal-{{ $product->id }}">
                                                                     <i class="sli sli-magnifier"></i>
-                                                                    <span class="ht-product-action-tooltip"> مشاهده سریع </span>
+                                                                    <span
+                                                                        class="ht-product-action-tooltip"> مشاهده سریع </span>
                                                                 </a>
                                                             </li>
                                                             <li>
@@ -233,7 +188,8 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <i class="sli sli-refresh"></i>
-                                                                    <span class="ht-product-action-tooltip">مقایسه</span>
+                                                                    <span
+                                                                        class="ht-product-action-tooltip">مقایسه</span>
                                                                 </a>
                                                             </li>
                                                         </ul>
@@ -242,7 +198,7 @@
                                                 <div class="ht-product-content">
                                                     <div class="ht-product-content-inner">
                                                         <div class="ht-product-categories">
-                                                            <a href="{{ route('home.categories.show', $category->slug) }}">{{ $product->category->name }} {{ $product->category->parent->name }}</a>
+                                                            <a href="{{ route('home.categories.show', $childCategory->slug) }}">{{ $product->category->name }} {{ $product->category->parent->name }}</a>
                                                         </div>
                                                         <h4 class="ht-product-title text-right">
                                                             <a href="#">{{ $product->name }}</a>

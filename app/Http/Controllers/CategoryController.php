@@ -14,6 +14,16 @@ class CategoryController extends Controller
             ->where('category_id', $category->id)
             ->paginate(9);
 
-        return view('front.categories.show', compact('category', 'products'));
+        $attributes = $category->attributes()
+            ->where('is_filter', 1)
+            ->with('values')
+            ->get();
+
+        $variation = $category->attributes()
+            ->where('is_variation', 1)
+            ->with('variationValues')
+            ->first();
+
+        return view('front.categories.show', compact('category', 'products', 'attributes', 'variation'));
     }
 }
