@@ -37,6 +37,59 @@
             $('.quantity-input').val(1);
 
         });
+
+        function filter() {
+
+            let attributes = @json($attributes);
+            attributes.map(attribute => {
+                let attributeValue = $(`.attribute-${attribute.id}:checked`).map(function () {
+                    return this.value;
+                }).get().join('-');
+
+                if (attributeValue == "") {
+                    $(`#filter-attribute-${attribute.id}`).prop('disabled', true);
+                } else {
+                    $(`#filter-attribute-${attribute.id}`).val(attributeValue);
+                }
+            });
+
+
+            let variation = $('.variation:checked').map(function () {
+                return this.value;
+            }).get().join('-');
+            if (variation == "") {
+                $('#filter-variation').prop('disabled', true);
+            } else {
+                $('#filter-variation').val(variation);
+            }
+
+
+            let sortBy = $('#sort-by').val();
+            if (sortBy == "default") {
+                $('#filter-sort-by').prop('disabled', true);
+            } else {
+                $('#filter-sort-by').val(sortBy);
+            }
+
+
+            let search = $('#search-input').val();
+            if (search == "") {
+                $('#filter-search').prop('disabled', true);
+            } else {
+                $('#filter-search').val(search);
+            }
+
+
+            $('#filter-form').submit();
+        }
+
+        // Serialize URL
+        $('#filter-form').on('submit', function (event) {
+            event.preventDefault();
+            let currentUrl = '{{ url()->current() }}';
+            let url = currentUrl + '?' + decodeURIComponent($(this).serialize());
+            $(location).attr('href', url);
+        });
     </script>
 @endsection
 
@@ -68,12 +121,13 @@
                         <div class="sidebar-widget">
                             <h4 class="pro-sidebar-title">جستجو </h4>
                             <div class="pro-sidebar-search mb-50 mt-25">
-                                <form class="pro-sidebar-search-form" action="#">
-                                    <input type="text" placeholder="... جستجو ">
-                                    <button>
+                                <div class="pro-sidebar-search-form">
+                                    <input id="search-input" type="text" placeholder="... جستجو "
+                                           value="{{ request()->has('search') ? request('search') : '' }}">
+                                    <button type="button" onclick="filter()">
                                         <i class="sli sli-magnifier"></i>
                                     </button>
-                                </form>
+                                </div>
                             </div>
                         </div>
                         <div class="sidebar-widget">
@@ -104,7 +158,12 @@
                                         @foreach($attribute->values as $value)
                                             <li>
                                                 <div class="sidebar-widget-list-left">
-                                                    <input type="checkbox" value=""><a href="#">{{ $value->value }}</a>
+                                                    <input type="checkbox" class="attribute-{{ $attribute->id }}"
+                                                           value="{{ $value->value }}"
+                                                           onchange="filter()"
+                                                        {{ ( request()->has('attribute.'.$attribute->id) && in_array($value->value, explode('-', request()->attribute[$attribute->id])) ) ? 'checked' : '' }}
+                                                    >
+                                                    <a href="#">{{ $value->value }}</a>
                                                     <span class="checkmark"></span>
                                                 </div>
                                             </li>
@@ -122,7 +181,12 @@
                                     @foreach($variation->variationValues as $value)
                                         <li>
                                             <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" value=""><a href="#">{{ $value->value }}</a>
+                                                <input type="checkbox" class="variation"
+                                                       value="{{ $value->value }}"
+                                                       onchange="filter()"
+                                                    {{ ( request()->has('variation') && in_array($value->value, explode('-', request()->variation)) ) ? 'checked' : '' }}
+                                                >
+                                                <a href="#">{{ $value->value }}</a>
                                                 <span class="checkmark"></span>
                                             </div>
                                         </li>
@@ -140,12 +204,26 @@
                     <div class="shop-top-bar" style="direction: rtl;">
                         <div class="select-shoing-wrap">
                             <div class="shop-select">
-                                <select>
-                                    <option value=""> مرتب سازی</option>
-                                    <option value=""> بیشترین قیمت</option>
-                                    <option value=""> کم ترین قیمت</option>
-                                    <option value=""> جدیدترین</option>
-                                    <option value=""> قدیمی ترین</option>
+                                <select id="sort-by" class="form-control" onchange="filter()">
+                                    <option value="default">
+                                        مرتب سازی
+                                    </option>
+                                    <option value="maxPrice"
+                                        {{ (request()->has('sortBy') && request('sortBy') == 'maxPrice') ? 'selected' : '' }}>
+                                        بیشترین قیمت
+                                    </option>
+                                    <option value="minPrice"
+                                        {{ (request()->has('sortBy') && request('sortBy') == 'minPrice') ? 'selected' : '' }}>
+                                        کم ترین قیمت
+                                    </option>
+                                    <option value="newest"
+                                        {{ (request()->has('sortBy') && request('sortBy') == 'newest') ? 'selected' : '' }}>
+                                        جدیدترین
+                                    </option>
+                                    <option value="oldest"
+                                        {{ (request()->has('sortBy') && request('sortBy') == 'oldest') ? 'selected' : '' }}>
+                                        قدیمی ترین
+                                    </option>
                                 </select>
                             </div>
 
@@ -258,6 +336,15 @@
             </div>
         </div>
     </div>
+
+    <form id="filter-form">
+        @foreach($attributes as $attribute)
+            <input id="filter-attribute-{{ $attribute->id }}" type="hidden" name="attribute[{{ $attribute->id }}]">
+        @endforeach
+        <input id="filter-variation" type="hidden" name="variation">
+        <input id="filter-sort-by" type="hidden" name="sortBy">
+        <input id="filter-search" type="hidden" name="search">
+    </form>
 
     <!-- Modal -->
     @foreach($products as $product)
