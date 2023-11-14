@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -13,7 +12,7 @@ class CategoryController extends Controller
             ->where('is_active', 1)
             ->filter()
             ->search()
-            ->get();
+            ->paginate(9);
 
         $attributes = $category->attributes()
             ->where('is_filter', 1)
