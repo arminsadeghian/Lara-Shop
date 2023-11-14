@@ -118,6 +118,37 @@ class Product extends Model
             });
         }
 
+        // sortBy Filter
+        if (request()->has('sortBy')) {
+            $sortBy = request()->sortBy;
+
+            switch ($sortBy) {
+                case 'maxPrice':
+                    $query->orderByDesc(
+                        ProductVariation::select('price')
+                            ->whereColumn('product_variations.product_id', 'products.id')
+                            ->take(1)
+                    );
+                    break;
+                case 'minPrice':
+                    $query->orderBy(
+                        ProductVariation::select('price')
+                            ->whereColumn('product_variations.product_id', 'products.id')
+                            ->take(1)
+                    );
+                    break;
+                case 'newest':
+                    $query->latest();
+                    break;
+                case 'oldest':
+                    $query->oldest();
+                    break;
+                default:
+                    $query;
+                    break;
+            }
+        }
+
         return $query;
     }
 
