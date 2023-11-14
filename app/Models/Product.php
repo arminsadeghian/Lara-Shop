@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use function Laravel\Prompts\search;
 
 class Product extends Model
 {
@@ -147,6 +148,16 @@ class Product extends Model
                     $query;
                     break;
             }
+        }
+
+        return $query;
+    }
+
+    public function scopeSearch($query)
+    {
+        $keyword = request()->search;
+        if (request()->has('search') && trim($keyword) != '') {
+            $query->where('name', 'LIKE', '%' . trim($keyword) . '%');
         }
 
         return $query;

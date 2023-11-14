@@ -12,6 +12,7 @@ class CategoryController extends Controller
         $products = $category->products()
             ->where('is_active', 1)
             ->filter()
+            ->search()
             ->get();
 
         $attributes = $category->attributes()
