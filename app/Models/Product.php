@@ -88,4 +88,22 @@ class Product extends Model
         return $this->hasMany(ProductRate::class);
     }
 
+    public function scopeFilter($query)
+    {
+        // Variation Filter
+        if (request()->has('variation')) {
+            $query->whereHas('variations', function ($query) {
+                $variations = explode('-', request()->variation);
+                foreach ($variations as $index => $variation) {
+                    if ($index == 0) {
+                        $query->where('value', $variation);
+                    }
+                    $query->orWhere('value', $variation);
+                }
+            });
+        }
+
+        return $query;
+    }
+
 }

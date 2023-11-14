@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\Product;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
     public function show(Category $category)
     {
-        $products = Product::latest()
+        $products = $category->products()
             ->where('is_active', 1)
-            ->where('category_id', $category->id)
-            ->paginate(9);
+            ->filter()
+            ->get();
 
         $attributes = $category->attributes()
             ->where('is_filter', 1)
