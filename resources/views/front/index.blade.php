@@ -122,9 +122,9 @@
                             <div class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">
                                 <div class="ht-product-inner">
                                     <div class="ht-product-image-wrap">
-                                        <a href="#" class="ht-product-image">
+                                        <a href="{{ route('home.products.show', $product->slug) }}" class="ht-product-image">
                                             <img src="{{ productImageUrl($product->primary_image) }}"
-                                                 alt="Universal Product Style"/>
+                                                 alt="{{ $product->name }}"/>
                                         </a>
                                         <div class="ht-product-action">
                                             <ul>
@@ -151,7 +151,7 @@
                                                 <a href="{{ $product->category->slug }}">{{ $product->category->name }} {{ $product->category->parent->name }}</a>
                                             </div>
                                             <h4 class="ht-product-title text-right">
-                                                <a href="{{ $product->slug }}">{{ $product->name }}</a>
+                                                <a href="{{ route('home.products.show', $product->slug) }}">{{ $product->name }}</a>
                                             </h4>
                                             <div class="ht-product-price">
                                                 @if($product->quantity_check)
@@ -195,7 +195,7 @@
     </div>
 
     <div class="testimonial-area pt-80 pb-95 section-margin-1"
-         style="background-image: url({{ asset('/images/bg-1.jpg') }})">
+         style="background-image: url({{ asset('/static/files/bg-1.jpg') }})">
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 ml-auto mr-auto">
@@ -215,12 +215,12 @@
                                 آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت
                             </p>
                             <div class="client-info">
-                                <img src="{{ asset('/images/testi.png') }}" alt=""/>
+                                <img src="{{ asset('/static/files/testi.png') }}" alt=""/>
                                 <h5>لورم ایپسوم</h5>
                             </div>
                         </div>
                         <div class="single-testimonial text-center">
-                            <img src="{{ asset('/images/testi-1.png') }}" alt=""/>
+                            <img src="{{ asset('/static/files/testi-1.png') }}" alt=""/>
                             <p>
                                 لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
                                 گرافیک
@@ -250,7 +250,7 @@
                 <div class="col-xl-4 col-lg-4 col-md-4">
                     <div class="single-feature text-right mb-40">
                         <div class="feature-icon">
-                            <img src="{{ asset('/images/free-shipping.png') }}" alt=""/>
+                            <img src="{{ asset('/static/files/free-shipping.png') }}" alt=""/>
                         </div>
                         <div class="feature-content">
                             <h4>لورم ایپسوم</h4>
@@ -261,7 +261,7 @@
                 <div class="col-xl-4 col-lg-4 col-md-4">
                     <div class="single-feature text-right mb-40 pl-50">
                         <div class="feature-icon">
-                            <img src="{{ asset('/images/support.png') }}" alt=""/>
+                            <img src="{{ asset('/static/files/support.png') }}" alt=""/>
                         </div>
                         <div class="feature-content">
                             <h4>لورم ایپسوم</h4>
@@ -272,7 +272,7 @@
                 <div class="col-xl-4 col-lg-4 col-md-4">
                     <div class="single-feature text-right mb-40">
                         <div class="feature-icon">
-                            <img src="{{ asset('/images/security.png') }}" alt=""/>
+                            <img src="{{ asset('/static/files/security.png') }}" alt=""/>
                         </div>
                         <div class="feature-content">
                             <h4>لورم ایپسوم</h4>

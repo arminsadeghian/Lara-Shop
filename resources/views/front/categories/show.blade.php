@@ -250,7 +250,7 @@
                                             class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">
                                             <div class="ht-product-inner">
                                                 <div class="ht-product-image-wrap">
-                                                    <a href="#" class="ht-product-image">
+                                                    <a href="{{ route('home.products.show', $product->slug) }}" class="ht-product-image">
                                                         <img src="{{ productImageUrl($product->primary_image) }}"
                                                              alt="{{ $product->name }}"/>
                                                     </a>
@@ -287,7 +287,7 @@
                                                             <a href="{{ route('home.categories.show', $childCategory->slug) }}">{{ $product->category->name }} {{ $product->category->parent->name }}</a>
                                                         </div>
                                                         <h4 class="ht-product-title text-right">
-                                                            <a href="#">{{ $product->name }}</a>
+                                                            <a href="{{ route('home.products.show', $product->slug) }}">{{ $product->name }}</a>
                                                         </h4>
                                                         <div class="ht-product-price">
                                                             @if($product->quantity_check)
