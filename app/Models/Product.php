@@ -90,6 +90,21 @@ class Product extends Model
 
     public function scopeFilter($query)
     {
+        // Attributes Filter
+        if (request()->has('attribute')) {
+            foreach (request()->attribute as $attribute) {
+                $query->whereHas('attributes', function ($query) use ($attribute) {
+                    $attributes = explode('-', $attribute);
+                    foreach ($attributes as $index => $item) {
+                        if ($index == 0) {
+                            $query->where('value', $item);
+                        }
+                        $query->orWhere('value', $item);
+                    }
+                });
+            }
+        }
+
         // Variation Filter
         if (request()->has('variation')) {
             $query->whereHas('variations', function ($query) {
