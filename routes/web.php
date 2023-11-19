@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CategoryController as HomeCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\ProductController as HomeProductController;
@@ -49,6 +50,18 @@ Route::prefix('admin-panel/')->name('admin.')->group(function () {
     Route::put('/products/{product}/category-update', [ProductController::class, 'updateCategory'])->name('products.category.update');
 });
 
+// Home Page
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
+
+// Category Page
 Route::get('/category/{category:slug}', [HomeCategoryController::class, 'show'])->name('home.categories.show');
+
+// Product Single Page
 Route::get('/product/{product:slug}', [HomeProductController::class, 'show'])->name('home.products.show');
+
+// OTP Auth
+Route::prefix('user/')->name('user.')->group(function () {
+    Route::any('login', [AuthController::class, 'login'])->name('login');
+    Route::post('check-otp', [AuthController::class, 'checkOtp'])->name('check_otp');
+    Route::post('resend-otp', [AuthController::class, 'resendOtp'])->name('resend_otp');
+});
