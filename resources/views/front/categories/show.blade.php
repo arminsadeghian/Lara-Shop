@@ -250,7 +250,8 @@
                                             class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">
                                             <div class="ht-product-inner">
                                                 <div class="ht-product-image-wrap">
-                                                    <a href="{{ route('home.products.show', $product->slug) }}" class="ht-product-image">
+                                                    <a href="{{ route('home.products.show', $product->slug) }}"
+                                                       class="ht-product-image">
                                                         <img src="{{ productImageUrl($product->primary_image) }}"
                                                              alt="{{ $product->name }}"/>
                                                     </a>
@@ -391,7 +392,7 @@
                                              data-rating-value="{{ ceil($product->rates->avg('rate')) }}">
                                         </div>
                                         <span style="margin: 0 10px">|</span>
-                                        <span>3 دیدگاه</span>
+                                        <span>{{ $product->approvedComments()->count() }} دیدگاه </span>
                                     </div>
                                     <p class="text-right">{{ $product->description }}</p>
                                     <div class="pro-details-list text-right">

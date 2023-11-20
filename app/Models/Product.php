@@ -163,4 +163,9 @@ class Product extends Model
         return $query;
     }
 
+    public function approvedComments()
+    {
+        return $this->hasMany(Comment::class)->where('approved', 1);
+    }
+
 }

@@ -97,7 +97,7 @@
                                  data-rating-value="{{ ceil($product->rates->avg('rate')) }}">
                             </div>
                             <span style="margin: 0 10px">|</span>
-                            <span>3 دیدگاه</span>
+                            <span>{{ $product->approvedComments()->count() }} دیدگاه </span>
                         </div>
                         <p class="text-right">{{ $product->description }}</p>
                         <div class="pro-details-list text-right">
@@ -212,7 +212,7 @@
                             <a data-toggle="tab" href="#des-details3"> اطلاعات بیشتر </a>
                             <a class="{{ count($errors) > 0 ? 'active' : '' }}" data-toggle="tab" href="#des-details2">
                                 دیدگاه
-                                (3)
+                                ({{ $product->approvedComments()->count() }})
                             </a>
                         </div>
                         <div class="tab-content description-review-bottom">
@@ -237,81 +237,26 @@
                             <div id="des-details2" class="tab-pane {{ count($errors) > 0 ? 'active' : '' }}">
 
                                 <div class="review-wrapper">
-                                    <div class="single-review">
-                                        <div class="review-img">
-                                            <img src="assets/img/product-details/client-1.jpg" alt="">
-                                        </div>
-                                        <div class="review-content text-right">
-                                            <p class="text-right">
-                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-                                                استفاده از طراحان گرافیک است.
-                                            </p>
-                                            <div class="review-top-wrap">
-                                                <div class="review-name">
-                                                    <h4> علی شیخ </h4>
-                                                </div>
-                                                <div class="review-rating">
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
+
+                                    @foreach($product->approvedComments as $comment)
+                                        <div class="single-review">
+                                            <div class="review-content text-right">
+                                                <p class="text-right">{{ $comment->text }}</p>
+                                                <div class="review-top-wrap">
+                                                    <div data-rating-stars="5"
+                                                         data-rating-readonly="true"
+                                                         data-rating-value="{{ ceil($product->rates->avg('rate')) }}">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="single-review">
-                                        <div class="review-img">
-                                            <img src="assets/img/product-details/client-2.jpg" alt="">
-                                        </div>
-                                        <div class="review-content">
-                                            <p class="text-right">
-                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-                                                استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در
-                                                ستون و سطرآنچنان که لازم است
-                                            </p>
-                                            <div class="review-top-wrap text-right">
-                                                <div class="review-name">
-                                                    <h4> علی شیخ </h4>
-                                                </div>
-                                                <div class="review-rating">
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="single-review">
-                                        <div class="review-img">
-                                            <img src="assets/img/product-details/client-3.jpg" alt="">
-                                        </div>
-                                        <div class="review-content text-right">
-                                            <p class="text-right">
-                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-                                                استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در
-                                                ستون و سطرآنچنان که لازم است
-                                            </p>
-                                            <div class="review-top-wrap">
-                                                <div class="review-name">
-                                                    <h4> علی شیخ </h4>
-                                                </div>
-                                                <div class="review-rating">
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                    <i class="sli sli-star"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @endforeach
+
                                 </div>
 
                                 @if (!Auth::check())
-                                    <p class="text-center mt-5 font-weight-bold">برای ثبت نظر ابتدا باید وارد سایت شوید!</p>
+                                    <p class="text-center mt-5 font-weight-bold">برای ثبت نظر ابتدا باید وارد سایت
+                                        شوید!</p>
                                 @else
                                     <div id="comments" class="ratting-form-wrapper text-right">
                                         <span> نوشتن دیدگاه </span>
@@ -357,7 +302,7 @@
                 </div>
                 <div class="col-lg-4 col-md-4">
                     <div class="pro-dec-banner">
-                        <a href="#"><img src="{{ asset('static/files/single-banner.png') }}" alt=""></a>
+                        <img src="{{ asset('static/files/single-banner.png') }}" alt="">
                     </div>
                 </div>
             </div>

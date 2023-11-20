@@ -326,7 +326,7 @@
                                              data-rating-value="{{ ceil($product->rates->avg('rate')) }}">
                                         </div>
                                         <span style="margin: 0 10px">|</span>
-                                        <span>3 دیدگاه</span>
+                                        <span>{{ $product->approvedComments()->count() }} دیدگاه </span>
                                     </div>
                                     <p class="text-right">{{ $product->description }}</p>
                                     <div class="pro-details-list text-right">
