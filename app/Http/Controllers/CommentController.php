@@ -51,4 +51,10 @@ class CommentController extends Controller
             return back()->with('failed', 'مشکلی در ثبت نظر به وجود آمده!');
         }
     }
+
+    public function userProfileCommentsIndex()
+    {
+        $comments = Comment::all();
+        return view('front.users_profile.comments', compact('comments'));
+    }
 }
