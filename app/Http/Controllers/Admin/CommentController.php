@@ -14,34 +14,15 @@ class CommentController extends Controller
         return view('admin.comments.index', compact('comments'));
     }
 
-    public function create()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
     public function show(Comment $comment)
     {
         return view('admin.comments.show', compact('comment'));
     }
 
-    public function edit(string $id)
+    public function destroy(Comment $comment)
     {
-        //
-    }
-
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    public function destroy(string $id)
-    {
-        //
+        $comment->delete();
+        return back()->with('success', 'کامنت مورد نظر حذف شد');
     }
 
     public function changeApprove(Comment $comment)

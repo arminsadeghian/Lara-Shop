@@ -9,6 +9,9 @@
     <div class="row">
 
         <div class="col-xl-12 col-md-12 mb-4 p-md-5 bg-white">
+
+            @include('errors.message')
+
             <div class="d-flex justify-content-between mb-4">
                 <h5 class="font-weight-bold">همه کامنت ها</h5>
             </div>
@@ -44,6 +47,13 @@
                         <td>
                             <a class="btn btn-sm btn-outline-primary"
                                href="{{ route('admin.comments.show', $comment->id) }}">نمایش</a>
+                        </td>
+                        <td>
+                            <form action="{{ route('admin.comments.destroy', $comment->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-sm btn-outline-danger" type="submit">حذف</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
