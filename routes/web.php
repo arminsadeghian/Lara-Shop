@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CategoryController as HomeCategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\CommentController as HomeCommentController;
 use App\Http\Controllers\ProductController as HomeProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\TagController;
@@ -58,6 +59,9 @@ Route::get('/category/{category:slug}', [HomeCategoryController::class, 'show'])
 
 // Product Single Page
 Route::get('/product/{product:slug}', [HomeProductController::class, 'show'])->name('home.products.show');
+
+// Store Comment In Product Single Page
+Route::post('/comments/store/{product}', [HomeCommentController::class, 'store'])->name('home.comments.store');
 
 // OTP Auth
 Route::prefix('user/')->name('user.')->group(function () {

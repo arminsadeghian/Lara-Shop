@@ -207,15 +207,16 @@
                 <div class="col-lg-8 col-md-8">
                     <div class="description-review-wrapper">
                         <div class="description-review-topbar nav">
-                            <a class="active" data-toggle="tab" href="#des-details1"> توضیحات </a>
+                            <a class="{{ count($errors) > 0 ? '' : 'active' }}" data-toggle="tab" href="#des-details1">
+                                توضیحات </a>
                             <a data-toggle="tab" href="#des-details3"> اطلاعات بیشتر </a>
-                            <a data-toggle="tab" href="#des-details2">
+                            <a class="{{ count($errors) > 0 ? 'active' : '' }}" data-toggle="tab" href="#des-details2">
                                 دیدگاه
                                 (3)
                             </a>
                         </div>
                         <div class="tab-content description-review-bottom">
-                            <div id="des-details1" class="tab-pane active">
+                            <div id="des-details1" class="tab-pane {{ count($errors) > 0 ? '' : 'active' }}">
                                 <div class="product-description-wrapper">
                                     <p class="text-justify">{{ $product->description }}</p>
                                 </div>
@@ -233,7 +234,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div id="des-details2" class="tab-pane">
+                            <div id="des-details2" class="tab-pane {{ count($errors) > 0 ? 'active' : '' }}">
 
                                 <div class="review-wrapper">
                                     <div class="single-review">
@@ -309,57 +310,46 @@
                                     </div>
                                 </div>
 
-                                <div class="ratting-form-wrapper text-right">
-                                    <span> نوشتن دیدگاه </span>
+                                @if (!Auth::check())
+                                    <p class="text-center mt-5 font-weight-bold">برای ثبت نظر ابتدا باید وارد سایت شوید!</p>
+                                @else
+                                    <div id="comments" class="ratting-form-wrapper text-right">
+                                        <span> نوشتن دیدگاه </span>
 
-                                    <div class="star-box-wrap">
-                                        <div class="single-ratting-star">
-                                            <i class="sli sli-star"></i>
+                                        <div class="my-3" id="dataReadonlyReview"
+                                             data-rating-stars="5"
+                                             data-rating-value="0"
+                                             data-rating-input="#rateInput">
                                         </div>
-                                        <div class="single-ratting-star">
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                        </div>
-                                        <div class="single-ratting-star">
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                        </div>
-                                        <div class="single-ratting-star">
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                        </div>
-                                        <div class="single-ratting-star">
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                            <i class="sli sli-star"></i>
-                                        </div>
-                                    </div>
 
-                                    <div class="ratting-form">
-                                        <form action="#">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="rating-form-style mb-20">
-                                                        <label> متن دیدگاه : </label>
-                                                        <textarea name="Your Review"></textarea>
+                                        <div class="ratting-form">
+                                            <form action="{{ route('home.comments.store', $product->id) }}"
+                                                  method="POST">
+                                                @csrf
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="rating-form-style mb-20">
+                                                            <label> متن دیدگاه : </label>
+                                                            <textarea name="text"></textarea>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div class="form-submit">
+                                                            <input type="submit" value="ارسال">
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <input id="rateInput" type="hidden" name="rate" value="0">
+                                            </form>
+                                        </div>
 
-                                                <div class="col-lg-12">
-                                                    <div class="form-submit">
-                                                        <input type="submit" value="ارسال">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
+                                        <div class="mt-4">
+                                            @include('errors.message')
+                                        </div>
+
                                     </div>
-
-                                </div>
+                                @endif
 
                             </div>
                         </div>
