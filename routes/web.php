@@ -39,6 +39,9 @@ Route::prefix('admin-panel/')->name('admin.')->group(function () {
     Route::resource('banners', BannerController::class);
     Route::resource('comments', AdminCommentController::class);
 
+    // Comment Change Approve
+    Route::get('/comment/{comment}/change-approve', [AdminCommentController::class, 'changeApprove'])->name('comments.change_approve');
+
     // Get category attributes
     Route::get('/category-attributes/{category}', [CategoryController::class, 'getCategoryAttributes']);
 

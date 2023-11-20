@@ -43,4 +43,21 @@ class CommentController extends Controller
     {
         //
     }
+
+    public function changeApprove(Comment $comment)
+    {
+        if ($comment->approved == 1) {
+            $comment->update([
+                'approved' => 0
+            ]);
+
+            return back()->with('failed', 'کامنت مورد نظر غیر فعال شد و دیگر در سایت نمایش داده نمیشود.');
+        } else {
+            $comment->update([
+                'approved' => 1
+            ]);
+
+            return back()->with('success', 'کامنت مورد نظر فعال شد و در سایت نمایش داده میشود.');
+        }
+    }
 }

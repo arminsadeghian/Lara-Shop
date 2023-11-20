@@ -9,6 +9,9 @@
     <div class="row">
 
         <div class="col-xl-12 col-md-12 mb-4 p-md-5 bg-white">
+
+            @include('errors.message')
+
             <div class="mb-4">
                 <h5 class="font-weight-bold">نمایش کامنت</h5>
             </div>
@@ -37,6 +40,13 @@
                 </div>
             </div>
             <a href="{{ route('admin.comments.index') }}" class="btn btn-dark mt-5 mr-3">بازگشت</a>
+            @if($comment->approved == 0)
+                <a href="{{ route('admin.comments.change_approve', $comment->id) }}"
+                   class="btn btn-outline-success mt-5 mr-3">تایید</a>
+            @else
+                <a href="{{ route('admin.comments.change_approve', $comment->id) }}"
+                   class="btn btn-outline-danger mt-5 mr-3">عدم تایید</a>
+            @endif
         </div>
     </div>
 
