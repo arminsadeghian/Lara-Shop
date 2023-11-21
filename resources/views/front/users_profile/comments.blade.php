@@ -29,13 +29,17 @@
                             <div class="col-lg-3 col-md-4">
                                 @include('front.users_profile.sidebar')
                             </div>
-                            @if(count($comments) > 0)
-                                <div class="col-lg-9 col-md-8">
-                                    <div class="tab-content" id="myaccountContent">
-                                        <div class="myaccount-content">
-                                            <h3> نظرات </h3>
-                                            <div class="review-wrapper">
+                            <div class="col-lg-9 col-md-8">
+                                <div class="tab-content" id="myaccountContent">
+                                    <div class="myaccount-content">
+                                        <h3> نظرات </h3>
+                                        <div class="review-wrapper">
 
+                                            @if($comments->isEmpty())
+                                                <div class="alert alert-danger">
+                                                    <p>هنوز کامنتی در سایت ثبت نکرده اید</p>
+                                                </div>
+                                            @else
                                                 @foreach($comments as $comment)
                                                     <div class="single-review">
                                                         <div class="review-content w-100 text-right">
@@ -63,14 +67,12 @@
                                                         </div>
                                                     </div>
                                                 @endforeach
-
-                                            </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
-                            @else
-                                <p>هنوز نظری در سایت ثبت نکرده اید</p>
-                            @endif
+                            </div>
+
                         </div>
                     </div>
                 </div>
