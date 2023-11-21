@@ -24,4 +24,10 @@ class WishlistController extends Controller
 
         return redirect()->back();
     }
+
+    public function userProfileWishlistIndex()
+    {
+        $wishlist = Wishlist::where('user_id', auth()->id())->get();
+        return view('front.users_profile.wishlist', compact('wishlist'));
+    }
 }

@@ -85,5 +85,6 @@ Route::prefix('user/')->name('user.')->group(function () {
 Route::prefix('profile/')->name('home.')->group(function () {
     Route::get('/', [UserProfileController::class, 'index'])->name('user_profile.index');
     Route::get('/comments', [HomeCommentController::class, 'userProfileCommentsIndex'])->name('user_profile.comments');
+    Route::get('/wishlist', [WishlistController::class, 'userProfileWishlistIndex'])->name('user_profile.wishlist');
 });
 
