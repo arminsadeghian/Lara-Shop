@@ -148,7 +148,7 @@
                             <div class="pro-details-wishlist">
                                 @auth()
                                     @if($product->checkUserWishlist(auth()->id()))
-                                        <a href="#">
+                                        <a href="{{ route('home.wishlist.remove', $product->id) }}">
                                             <i class="fas fa-heart" style="color: red"></i>
                                         </a>
                                     @else

@@ -428,7 +428,21 @@
                                                 <a href="#">افزودن به سبد خرید</a>
                                             </div>
                                             <div class="pro-details-wishlist">
-                                                <a title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
+                                                @auth()
+                                                    @if($product->checkUserWishlist(auth()->id()))
+                                                        <a href="{{ route('home.wishlist.remove', $product->id) }}">
+                                                            <i class="fas fa-heart" style="color: red"></i>
+                                                        </a>
+                                                    @else
+                                                        <a href="{{ route('home.wishlist.add', $product->id) }}">
+                                                            <i class="sli sli-heart"></i>
+                                                        </a>
+                                                    @endif
+                                                @else
+                                                    <a href="{{ route('user.login') }}">
+                                                        <i class="sli sli-heart"></i>
+                                                    </a>
+                                                @endauth
                                             </div>
                                             <div class="pro-details-compare">
                                                 <a title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>

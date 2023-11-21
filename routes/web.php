@@ -70,8 +70,9 @@ Route::get('/product/{product:slug}', [HomeProductController::class, 'show'])->n
 // Store Comment In Product Single Page
 Route::post('/comments/store/{product}', [HomeCommentController::class, 'store'])->name('home.comments.store');
 
-// Add To Wishlist
-Route::get('/wishlist/{product}', [WishlistController::class, 'add'])->name('home.wishlist.add');
+// Wishlist
+Route::get('/add-to-wishlist/{product}', [WishlistController::class, 'add'])->name('home.wishlist.add');
+Route::get('/remove-from-wishlist/{product}', [WishlistController::class, 'remove'])->name('home.wishlist.remove');
 
 // OTP Auth
 Route::prefix('user/')->name('user.')->group(function () {

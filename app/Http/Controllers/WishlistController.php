@@ -13,5 +13,15 @@ class WishlistController extends Controller
             'user_id' => auth()->id(),
             'product_id' => $product->id,
         ]);
+
+        return redirect()->back();
+    }
+
+    public function remove(Product $product)
+    {
+        $wishlist = Wishlist::where('product_id', $product->id)->where('user_id', auth()->id());
+        $wishlist->delete();
+
+        return redirect()->back();
     }
 }
