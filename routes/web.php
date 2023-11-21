@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController as HomeCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\CommentController as HomeCommentController;
@@ -79,6 +80,10 @@ Route::get('/remove-from-wishlist/{product}', [WishlistController::class, 'remov
 Route::get('/compare', [CompareController::class, 'index'])->name('home.compare.index');
 Route::get('/add-to-compare/{product}', [CompareController::class, 'add'])->name('home.compare.add');
 Route::get('/remove-from-compare/{product}', [CompareController::class, 'remove'])->name('home.compare.remove');
+
+// Cart
+Route::get('/cart', [CartController::class, 'add'])->name('home.cart.index');
+Route::post('/add-to-cart', [CartController::class, 'add'])->name('home.cart.add');
 
 // OTP Auth
 Route::prefix('user/')->name('user.')->group(function () {
