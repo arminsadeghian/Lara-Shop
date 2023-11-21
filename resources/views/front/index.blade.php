@@ -122,7 +122,8 @@
                             <div class="ht-product ht-product-action-on-hover ht-product-category-right-bottom mb-30">
                                 <div class="ht-product-inner">
                                     <div class="ht-product-image-wrap">
-                                        <a href="{{ route('home.products.show', $product->slug) }}" class="ht-product-image">
+                                        <a href="{{ route('home.products.show', $product->slug) }}"
+                                           class="ht-product-image">
                                             <img src="{{ productImageUrl($product->primary_image) }}"
                                                  alt="{{ $product->name }}"/>
                                         </a>
@@ -133,14 +134,6 @@
                                                        data-target="#prodcutModal-{{ $product->id }}"><i
                                                             class="sli sli-magnifier"></i><span
                                                             class="ht-product-action-tooltip"> مشاهده سریع</span></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="sli sli-heart"></i><span
-                                                            class="ht-product-action-tooltip"> افزودن به علاقه مندی ها </span></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="sli sli-refresh"></i><span
-                                                            class="ht-product-action-tooltip"> مقایسه </span></a>
                                                 </li>
                                             </ul>
                                         </div>

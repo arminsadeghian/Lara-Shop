@@ -265,20 +265,6 @@
                                                                         class="ht-product-action-tooltip"> مشاهده سریع </span>
                                                                 </a>
                                                             </li>
-                                                            <li>
-                                                                <a href="#"><i class="sli sli-heart"></i>
-                                                                    <span class="ht-product-action-tooltip">
-                                                                        افزودن به علاقه مندی ها
-                                                                    </span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">
-                                                                    <i class="sli sli-refresh"></i>
-                                                                    <span
-                                                                        class="ht-product-action-tooltip">مقایسه</span>
-                                                                </a>
-                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>

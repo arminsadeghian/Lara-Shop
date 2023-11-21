@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -69,6 +70,9 @@ Route::get('/product/{product:slug}', [HomeProductController::class, 'show'])->n
 // Store Comment In Product Single Page
 Route::post('/comments/store/{product}', [HomeCommentController::class, 'store'])->name('home.comments.store');
 
+// Add To Wishlist
+Route::get('/wishlist/{product}', [WishlistController::class, 'add'])->name('home.wishlist.add');
+
 // OTP Auth
 Route::prefix('user/')->name('user.')->group(function () {
     Route::any('login', [AuthController::class, 'login'])->name('login');
@@ -82,7 +86,3 @@ Route::prefix('profile/')->name('home.')->group(function () {
     Route::get('/comments', [HomeCommentController::class, 'userProfileCommentsIndex'])->name('user_profile.comments');
 });
 
-Route::get('/test', function () {
-//    $comments = \App\Models\Comment::all();
-//    dd(count($comments) > 0);
-});
