@@ -41,8 +41,8 @@
                         <td>{{ $coupon->code }}</td>
                         <td>{{ $coupon->type == 'amount' ? 'مبلغی' : 'درصدی' }}</td>
                         <td>{{ number_format($coupon->amount) }}</td>
-                        <td>{{ $coupon->persentage }}</td>
-                        <td>{{ $coupon->max_persentage_amount }}</td>
+                        <td>{{ $coupon->percentage }}</td>
+                        <td>{{ number_format($coupon->max_percentage_amount) }}</td>
                         <td>{{ verta($coupon->expired_at) }}</td>
                         <td>{{ $coupon->description }}</td>
                         <td>
