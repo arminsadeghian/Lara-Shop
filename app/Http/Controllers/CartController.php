@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Home\Cart\UpdateCartRequest;
 use App\Models\Product;
 use App\Models\ProductVariation;
 use Illuminate\Http\Request;
@@ -34,6 +35,25 @@ class CartController extends Controller
                     'quantity' => $request->qtybutton,
                     'attributes' => $productVariation->toArray(),
                     'associatedModel' => $product,
+                ]);
+            }
+        }
+
+        return redirect()->back();
+    }
+
+    public function update(UpdateCartRequest $request)
+    {
+        $validatedData = $request->validated();
+
+        foreach ($validatedData['qtybutton'] as $rowId => $quantity) {
+            $item = Cart::get($rowId);
+            if ($quantity <= $item->attributes->quantity) {
+                Cart::update($rowId, [
+                    'quantity' => [
+                        'relative' => false,
+                        'value' => $quantity
+                    ]
                 ]);
             }
         }

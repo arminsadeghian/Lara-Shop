@@ -83,6 +83,7 @@ Route::get('/remove-from-compare/{product}', [CompareController::class, 'remove'
 
 // Cart
 Route::get('/cart', [CartController::class, 'index'])->name('home.cart.index');
+Route::put('/cart', [CartController::class, 'update'])->name('home.cart.update');
 Route::post('/add-to-cart', [CartController::class, 'add'])->name('home.cart.add');
 
 // OTP Auth
