@@ -96,7 +96,9 @@
                                             <li class="single-shopping-cart"
                                                 style="display: flex; flex-direction: row; flex-wrap: nowrap;">
                                                 <div class="item-close">
-                                                    <a href="#"><i class="sli sli-close"></i></a>
+                                                    <a href="{{ route('home.cart.remove', $item->id) }}">
+                                                        <i class="sli sli-close"></i>
+                                                    </a>
                                                 </div>
                                                 <div class="shopping-cart-title">
                                                     <h4><a href="#">{{ $item->name }}</a></h4>

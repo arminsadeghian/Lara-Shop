@@ -95,7 +95,9 @@
                                                 تومان
                                             </td>
                                             <td class="product-remove">
-                                                <a href="#"><i class="sli sli-close"></i></a>
+                                                <a href="{{ route('home.cart.remove', $item->id) }}">
+                                                    <i class="sli sli-close"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -108,7 +110,7 @@
                                     <div class="cart-shiping-update-wrapper">
                                         <div class="cart-clear">
                                             <button type="submit"> به روز رسانی سبد خرید</button>
-                                            <a href="#"> پاک کردن سبد خرید </a>
+                                            <a href="{{ route('home.cart.clear') }}"> پاک کردن سبد خرید </a>
                                         </div>
                                     </div>
                                 </div>

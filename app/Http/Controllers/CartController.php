@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Home\Cart\UpdateCartRequest;
 use App\Models\Product;
 use App\Models\ProductVariation;
 use Illuminate\Http\Request;
@@ -59,6 +58,20 @@ class CartController extends Controller
                 ]);
             }
         }
+
+        return redirect()->back();
+    }
+
+    public function clear()
+    {
+        Cart::clear();
+
+        return redirect()->back();
+    }
+
+    public function remove($rowId)
+    {
+        Cart::remove($rowId);
 
         return redirect()->back();
     }

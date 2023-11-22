@@ -85,6 +85,8 @@ Route::get('/remove-from-compare/{product}', [CompareController::class, 'remove'
 Route::get('/cart', [CartController::class, 'index'])->name('home.cart.index');
 Route::put('/cart', [CartController::class, 'update'])->name('home.cart.update');
 Route::post('/add-to-cart', [CartController::class, 'add'])->name('home.cart.add');
+Route::get('/clear-cart', [CartController::class, 'clear'])->name('home.cart.clear');
+Route::get('/remove-from-cart/{rowId}', [CartController::class, 'remove'])->name('home.cart.remove');
 
 // OTP Auth
 Route::prefix('user/')->name('user.')->group(function () {
