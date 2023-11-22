@@ -66,8 +66,10 @@ class CouponController extends Controller
         return redirect()->back()->with('success', 'کوپن مورد نظر ویرایش شد');
     }
 
-    public function destroy(string $id)
+    public function destroy(Coupon $coupon)
     {
-        //
+        $coupon->delete();
+
+        return redirect()->back()->with('success', 'کوپن مورد نظر حذف شد');
     }
 }

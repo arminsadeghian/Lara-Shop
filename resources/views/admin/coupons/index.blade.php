@@ -9,6 +9,9 @@
     <div class="row">
 
         <div class="col-xl-12 col-md-12 mb-4 p-md-5 bg-white">
+
+            @include('errors.message')
+
             <div class="d-flex justify-content-between mb-4">
                 <h5 class="font-weight-bold">همه کوپن ها</h5>
                 <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.coupons.create') }}">
@@ -45,11 +48,16 @@
                         <td>{{ number_format($coupon->max_percentage_amount) }}</td>
                         <td>{{ verta($coupon->expired_at) }}</td>
                         <td>{{ $coupon->description }}</td>
-                        <td>
+                        <td style="display: flex; justify-content: space-between;">
                             <a class="btn btn-sm btn-outline-primary"
                                href="{{ route('admin.coupons.show', $coupon->id) }}">نمایش</a>
                             <a class="btn btn-sm btn-outline-primary"
                                href="{{ route('admin.coupons.edit', $coupon->id) }}">ویرایش</a>
+                            <form action="{{ route('admin.coupons.destroy', $coupon->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-outline-primary">حذف</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
