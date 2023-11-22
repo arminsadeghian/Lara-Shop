@@ -42,9 +42,11 @@ class CartController extends Controller
         return redirect()->back();
     }
 
-    public function update(UpdateCartRequest $request)
+    public function update(Request $request)
     {
-        $validatedData = $request->validated();
+        $validatedData = $request->validate([
+            'qtybutton' => 'required'
+        ]);
 
         foreach ($validatedData['qtybutton'] as $rowId => $quantity) {
             $item = Cart::get($rowId);
