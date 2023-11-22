@@ -76,4 +76,23 @@ class CartController extends Controller
         return redirect()->back();
     }
 
+    public function checkCoupon(Request $request)
+    {
+        $validatedData = $request->validate([
+            'code' => 'required|string'
+        ]);
+
+        if (!auth()->check()) {
+            return redirect()->back()->with('failed', 'برای استفاده از کد تخفیف ابتدا وارد سایت شوید');
+        }
+
+        $result = checkCoupon($validatedData['code']);
+
+        if (array_key_exists('error', $result)) {
+            return redirect()->back()->with('failed', $result['error']);
+        } else {
+            return redirect()->back()->with('success', $result['success']);
+        }
+    }
+
 }

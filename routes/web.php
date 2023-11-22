@@ -89,6 +89,7 @@ Route::put('/cart', [CartController::class, 'update'])->name('home.cart.update')
 Route::post('/add-to-cart', [CartController::class, 'add'])->name('home.cart.add');
 Route::get('/clear-cart', [CartController::class, 'clear'])->name('home.cart.clear');
 Route::get('/remove-from-cart/{rowId}', [CartController::class, 'remove'])->name('home.cart.remove');
+Route::post('/check-coupon', [CartController::class, 'checkCoupon'])->name('home.coupons.check');
 
 // OTP Auth
 Route::prefix('user/')->name('user.')->group(function () {

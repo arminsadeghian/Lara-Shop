@@ -32,6 +32,7 @@
             </div>
         @else
             <div class="container">
+                @include('errors.message')
                 <h3 class="cart-page-title font-weight-bold"> سبد خرید شما </h3>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
@@ -125,9 +126,10 @@
                                         <h4 class="cart-bottom-title section-bg-gray"> کد تخفیف </h4>
                                     </div>
                                     <div class="discount-code">
-                                        <p> لورم ایپسوم متن ساختگی با تولید سادگی </p>
-                                        <form>
-                                            <input type="text" required="" name="name">
+                                        <p>کد تخفیف دارید؟</p>
+                                        <form action="{{ route('home.coupons.check') }}" method="POST">
+                                            @csrf
+                                            <input type="text" name="code" placeholder="کد تخفیف">
                                             <button class="cart-btn-2" type="submit"> ثبت</button>
                                         </form>
                                     </div>
@@ -157,6 +159,16 @@
                                         </h5>
                                     @endif
 
+                                    @if(session()->has('coupon'))
+                                        <h5>
+                                            مبلغ کد تخفیف :
+                                            <span style="color: #ff3535">
+                                                {{ number_format(session()->get('coupon.amount')) }}
+                                                تومان
+                                            </span>
+                                        </h5>
+                                    @endif
+
                                     <div class="total-shipping">
                                         <h5>
                                             هزینه ارسال :
@@ -173,7 +185,7 @@
                                     <h4 class="grand-totall-title">
                                         جمع کل:
                                         <span>
-                                            {{ number_format(\Cart::getTotal() + cartTotalDeliveryAmount()) }}
+                                            {{ number_format(cartTotalAmount()) }}
                                             تومان
                                         </span>
                                     </h4>

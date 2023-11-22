@@ -1,5 +1,9 @@
 <?php
 
+use App\Models\Coupon;
+use App\Models\Order;
+use Carbon\Carbon;
+
 function productImageUrl($image)
 {
     return url('/images/products/' . $image);
@@ -49,4 +53,65 @@ function cartTotalDeliveryAmount(): int
     }
 
     return $cartTotalDeliveryAmount;
+}
+
+function cartTotalAmount()
+{
+    if (session()->has('coupon')) {
+        if (session()->get('coupon.amount') > (\Cart::getTotal() + cartTotalDeliveryAmount())) {
+            return 0;
+        } else {
+            return (\Cart::getTotal() + cartTotalDeliveryAmount()) - session()->get('coupon.amount');
+        }
+    } else {
+        return \Cart::getTotal() + cartTotalDeliveryAmount();
+    }
+}
+
+function checkCoupon(string $code)
+{
+    $coupon = isCouponExists($code);
+
+    if ($coupon == null) {
+        return ['error' => 'کد تخفیف اشتباه است'];
+    }
+
+    if (isCouponUsed($coupon->id)) {
+        return ['error' => 'شما قبلا کد تخفیف استفاده کرده اید'];
+    }
+
+    if ($coupon->type == 'amount') {
+        session()->put('coupon', [
+            'code' => $coupon->code,
+            'amount' => $coupon->amount,
+        ]);
+    } else {
+
+        $cartTotalAmount = \Cart::getTotal();
+        $couponAmount = ($cartTotalAmount * $coupon->percentage) / 100;
+        $amount = ($couponAmount > $coupon->max_percentage_amount) ? $coupon->max_percentage_amount : $couponAmount;
+
+        session()->put('coupon', [
+            'code' => $coupon->code,
+            'amount' => $amount,
+        ]);
+    }
+
+    return ['success' => 'کد تخفیف برای شما ثبت شد'];
+}
+
+function isCouponExists(string $code)
+{
+    $coupon = Coupon::where('code', $code)
+        ->where('expired_at', '>', Carbon::now())
+        ->first();
+
+    return $coupon ?? null;
+}
+
+function isCouponUsed(int $couponId)
+{
+    return Order::where('user_id', auth()->id())
+        ->where('coupon_id', $couponId)
+        ->where('payment_status', 1)->exists();
 }
