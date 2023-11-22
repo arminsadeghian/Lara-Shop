@@ -208,6 +208,12 @@ return [
         'cellphone' => 'شماره موبایل',
         'otp' => 'رمز یکبار مصرف',
         'text' => 'متن کامنت',
+        'coupon_type' => 'نوع کوپن',
+        'percentage' => 'درصد',
+        'expired_at' => 'تاریخ انقضا',
+        'max_percentage_amount' => 'حداکثر مبلغ درصدی',
+        'code' => 'کد کوپن',
+        'amount' => 'مبلغ',
     ],
 
 ];
