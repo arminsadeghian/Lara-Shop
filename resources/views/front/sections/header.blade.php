@@ -82,7 +82,7 @@
                                         <a class="cart-close" href="#"><i class="sli sli-close"></i></a>
                                         <h4>سبد خرید</h4>
                                     </div>
-                                    <img src="{{ asset('/static/files/empty-card.svg') }}" alt="">
+                                    <img src="{{ asset('/static/files/empty-cart.svg') }}" alt="">
                                     <p class="font-weight-bold">سبد خرید شما خالی است</p>
                                 </div>
                             @else
@@ -108,7 +108,7 @@
                                                     </div>
                                                     @if($item->attributes->is_sale)
                                                         <p style="font-size: 12px">
-                                                            {{ $item->attributes->persent_sale }}
+                                                            {{ $item->attributes->persent_sale }}%
                                                             تخفیف
                                                         </p>
                                                     @endif

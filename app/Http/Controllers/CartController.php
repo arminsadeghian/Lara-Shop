@@ -9,6 +9,11 @@ use Cart;
 
 class CartController extends Controller
 {
+    public function index()
+    {
+        return view('front.cart.index');
+    }
+
     public function add(Request $request)
     {
         $request->validate([
