@@ -38,9 +38,9 @@ class CouponController extends Controller
         return redirect()->back()->with('success', 'کوپن مورد نظر ایجاد شد');
     }
 
-    public function show(string $id)
+    public function show(Coupon $coupon)
     {
-        //
+        return view('admin.coupons.show', compact('coupon'));
     }
 
     public function edit(string $id)
