@@ -16,6 +16,7 @@ use App\Http\Controllers\ProductController as HomeProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserAddressController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
@@ -104,5 +105,6 @@ Route::prefix('profile/')->name('home.')->group(function () {
     Route::get('/', [UserProfileController::class, 'index'])->name('user_profile.index');
     Route::get('/comments', [HomeCommentController::class, 'userProfileCommentsIndex'])->name('user_profile.comments');
     Route::get('/wishlist', [WishlistController::class, 'userProfileWishlistIndex'])->name('user_profile.wishlist');
+    Route::get('/addresses', [UserAddressController::class, 'userAddressesIndex'])->name('user_profile.addresses');
 });
 
