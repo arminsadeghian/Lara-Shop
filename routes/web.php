@@ -106,5 +106,7 @@ Route::prefix('profile/')->name('home.')->group(function () {
     Route::get('/comments', [HomeCommentController::class, 'userProfileCommentsIndex'])->name('user_profile.comments');
     Route::get('/wishlist', [WishlistController::class, 'userProfileWishlistIndex'])->name('user_profile.wishlist');
     Route::get('/addresses', [UserAddressController::class, 'userAddressesIndex'])->name('user_profile.addresses');
+    Route::post('/addresses', [UserAddressController::class, 'store'])->name('user_profile.addresses.store');
+    Route::get('/get-province-cities-list', [UserAddressController::class, 'getProvinceCitiesList']);
 });
 

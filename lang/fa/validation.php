@@ -214,6 +214,10 @@ return [
         'max_percentage_amount' => 'حداکثر مبلغ درصدی',
         'code' => 'کد کوپن',
         'amount' => 'مبلغ',
+        'title' => 'عنوان',
+        'address' => 'آدرس',
+        'postal_code' => 'کد پستی',
+        'city_id' => 'انتخاب شهر',
     ],
 
 ];

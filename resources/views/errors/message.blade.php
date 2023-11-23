@@ -3,7 +3,7 @@
 @endif
 
 @if(session('success'))
-    <div class="alert alert-success">{{ session('success') }}</div>
+    <div class="alert alert-success" style="text-align: right">{{ session('success') }}</div>
 @endif
 
 @if ($errors->any())
