@@ -107,6 +107,7 @@ Route::prefix('profile/')->name('home.')->group(function () {
     Route::get('/wishlist', [WishlistController::class, 'userProfileWishlistIndex'])->name('user_profile.wishlist');
     Route::get('/addresses', [UserAddressController::class, 'userAddressesIndex'])->name('user_profile.addresses');
     Route::post('/addresses', [UserAddressController::class, 'store'])->name('user_profile.addresses.store');
+    Route::put('/addresses/{address}', [UserAddressController::class, 'update'])->name('user_profile.addresses.update');
     Route::get('/get-province-cities-list', [UserAddressController::class, 'getProvinceCitiesList']);
 });
 

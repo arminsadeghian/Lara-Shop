@@ -63,25 +63,30 @@
                                 <div class="myaccount-content address-content">
                                     <h3> آدرس ها </h3>
 
-                                    <div>
+                                    @foreach($addresses as $address)
+                                        <div>
                                         <address>
                                             <p>
-                                                <strong> علی شیخ </strong>
-                                                <span class="mr-2"> عنوان آدرس : <span> منزل </span> </span>
+                                                <span class="font-weight-bold">عنوان آدرس :</span>
+                                                <span>{{ $address->title }}</span>
                                             </p>
                                             <p>
-                                                خ شهید فلان ، کوچه ۸ فلان ،فرعی فلان ، پلاک فلان
+                                                <span class="font-weight-bold"> آدرس : </span>
+                                                <span>{{ $address->address }}</span>
                                                 <br>
-                                                <span> استان : تهران </span>
-                                                <span> شهر : تهران </span>
+                                                <span class="font-weight-bold"> استان : </span>
+                                                <span>{{ $address->province->name }}</span>
+                                                <br>
+                                                <span class="font-weight-bold"> شهر : </span>
+                                                <span>{{ $address->city->name }}</span>
                                             </p>
                                             <p>
-                                                کدپستی :
-                                                89561257
+                                                <span class="font-weight-bold">کدپستی :</span>
+                                                <span>{{ $address->postal_code }}</span>
                                             </p>
                                             <p>
-                                                شماره موبایل :
-                                                89561257
+                                                <span class="font-weight-bold">شماره موبایل :</span>
+                                                <span>{{ $address->cellphone }}</span>
                                             </p>
 
                                         </address>
@@ -90,74 +95,91 @@
                                             ویرایش آدرس
                                         </a>
 
-                                        <div class="collapse-address-update-content">
+                                        <div class="collapse-address-update-content"
+                                                 style="{{ count($errors->addressUpdate) > 0 ? 'display:block' : '' }}">
 
-                                            <form action="#">
+                                                <form action="{{ route('home.user_profile.addresses.update', $address->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="row">
+                                                        <div class="tax-select col-lg-6 col-md-6">
+                                                            <label>عنوان</label>
+                                                            <input class="form-control" type="text" name="title"
+                                                                   placeholder="عنوان" value="{{ $address->title }}">
+                                                            @error('title','addressUpdate')
+                                                                <p class="input-error-validation">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </p>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="tax-select col-lg-6 col-md-6">
+                                                            <label>شماره تماس</label>
+                                                            <input class="form-control" type="text" name="cellphone"
+                                                                   placeholder="شماره تماس" value="{{ $address->cellphone }}">
+                                                            @error('cellphone','addressUpdate')
+                                                                <p class="input-error-validation">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </p>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="tax-select col-lg-6 col-md-6">
+                                                            <label>استان</label>
+                                                            <select class="form-control email s-email s-wid province-select"
+                                                                    name="province_id">
+                                                                @foreach($provinces as $province)
+                                                                    <option value="{{ $province->id }}" {{ $province->id == $address->province_id ? 'selected' : '' }}>{{ $province->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            @error('province_id','addressUpdate')
+                                                                <p class="input-error-validation">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </p>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="tax-select col-lg-6 col-md-6">
+                                                            <label>شهر</label>
+                                                            <select class="form-control email s-email s-wid city-select"
+                                                                    name="city_id">
+                                                                <option value="{{ $address->city_id }}">{{ $address->city->name }}</option>
+                                                            </select>
+                                                            @error('city_id','addressUpdate')
+                                                                <p class="input-error-validation">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </p>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="tax-select col-lg-6 col-md-6">
+                                                            <label>آدرس</label>
+                                                            <input class="form-control" type="text" name="address" placeholder="آدرس"
+                                                                   value="{{ $address->address }}">
+                                                            @error('address','addressUpdate')
+                                                                <p class="input-error-validation">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </p>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="tax-select col-lg-6 col-md-6">
+                                                            <label>کد پستی</label>
+                                                            <input class="form-control" type="text" name="postal_code" placeholder="کد پستی"
+                                                                   value="{{ $address->postal_code }}">
+                                                            @error('postal_code','addressUpdate')
+                                                                <p class="input-error-validation">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </p>
+                                                            @enderror
+                                                        </div>
+                                                        <div class=" col-lg-12 col-md-12">
+                                                            <button class="cart-btn-2" type="submit">
+                                                                ثبت آدرس
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
 
-                                                <div class="row">
-
-                                                    <div class="tax-select col-lg-6 col-md-6">
-                                                        <label>
-                                                            عنوان
-                                                        </label>
-                                                        <input type="text" required="" name="title">
-                                                    </div>
-                                                    <div class="tax-select col-lg-6 col-md-6">
-                                                        <label>
-                                                            شماره تماس
-                                                        </label>
-                                                        <input type="text">
-                                                    </div>
-                                                    <div class="tax-select col-lg-6 col-md-6">
-                                                        <label>
-                                                            استان
-                                                        </label>
-                                                        <select class="email s-email s-wid">
-                                                            <option>Bangladesh</option>
-                                                            <option>Albania</option>
-                                                            <option>Åland Islands</option>
-                                                            <option>Afghanistan</option>
-                                                            <option>Belgium</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="tax-select col-lg-6 col-md-6">
-                                                        <label>
-                                                            شهر
-                                                        </label>
-                                                        <select class="email s-email s-wid">
-                                                            <option>Bangladesh</option>
-                                                            <option>Albania</option>
-                                                            <option>Åland Islands</option>
-                                                            <option>Afghanistan</option>
-                                                            <option>Belgium</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="tax-select col-lg-6 col-md-6">
-                                                        <label>
-                                                            آدرس
-                                                        </label>
-                                                        <input type="text">
-                                                    </div>
-                                                    <div class="tax-select col-lg-6 col-md-6">
-                                                        <label>
-                                                            کد پستی
-                                                        </label>
-                                                        <input type="text">
-                                                    </div>
-
-                                                    <div class=" col-lg-12 col-md-12">
-                                                        <button class="cart-btn-2" type="submit"> ویرایش
-                                                            آدرس
-                                                        </button>
-                                                    </div>
-
-                                                </div>
-
-                                            </form>
-
-                                        </div>
+                                            </div>
 
                                     </div>
+                                    @endforeach
 
                                     <hr>
 
