@@ -148,20 +148,16 @@
 
                         </div>
 
-                        <div class="setting-wrap">
-                            <button class="setting-active">
-                                <i class="sli sli-settings"></i>
-                            </button>
-                            <div class="setting-content">
-                                <ul class="text-right">
-                                    <li><a href="login.html">ورود</a></li>
-                                    <li>
-                                        <a href="register.html">ایجاد حساب</a>
-                                    </li>
-                                    <li><a href="my-account.html">پروفایل</a></li>
-                                </ul>
+                        @if(auth()->check())
+                            <div class="setting-wrap">
+                                <a href="{{ route('home.user_profile.index') }}">
+                                    <i style="font-size: 18px" class="sli sli-user"></i>
+                                </a>
                             </div>
-                        </div>
+                        @else
+                            <a class="ml-4" href="{{ route('user.login') }}">وارد شوید</a>
+                        @endif
+
                     </div>
                 </div>
             </div>

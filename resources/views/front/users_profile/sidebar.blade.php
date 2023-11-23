@@ -25,7 +25,7 @@
         نظرات
     </a>
 
-    <a href="#">
+    <a href="{{ route('user.logout') }}">
         <i class="sli sli-logout ml-1"></i>
         خروج
     </a>

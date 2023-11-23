@@ -94,6 +94,7 @@ Route::post('/check-coupon', [CartController::class, 'checkCoupon'])->name('home
 // OTP Auth
 Route::prefix('user/')->name('user.')->group(function () {
     Route::any('login', [AuthController::class, 'login'])->name('login');
+    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
     Route::post('check-otp', [AuthController::class, 'checkOtp'])->name('check_otp');
     Route::post('resend-otp', [AuthController::class, 'resendOtp'])->name('resend_otp');
 });
