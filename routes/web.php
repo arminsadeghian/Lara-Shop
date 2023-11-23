@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController as HomeCategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CommentController as HomeCommentController;
 use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 use App\Http\Controllers\CompareController;
@@ -91,6 +92,9 @@ Route::post('/add-to-cart', [CartController::class, 'add'])->name('home.cart.add
 Route::get('/clear-cart', [CartController::class, 'clear'])->name('home.cart.clear');
 Route::get('/remove-from-cart/{rowId}', [CartController::class, 'remove'])->name('home.cart.remove');
 Route::post('/check-coupon', [CartController::class, 'checkCoupon'])->name('home.coupons.check');
+
+// Checkout
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('home.checkout.index');
 
 // OTP Auth
 Route::prefix('user/')->name('user.')->group(function () {

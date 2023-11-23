@@ -71,7 +71,7 @@
                                     </span>
 
                                 @if(! \Cart::isEmpty())
-                                    <span class="cart-price">{{ number_format(\Cart::getTotal()) }}</span>
+                                    <span class="cart-price">{{ number_format(cartTotalAmount()) }}</span>
                                     <span>تومان</span>
                                 @endif
                             </button>
@@ -134,7 +134,7 @@
                                             </h4>
                                             <span class="shop-total">
                                             <span class="font-weight-bold"
-                                                  style="font-size: 18px">{{ number_format(\Cart::getTotal()) }}</span> تومان
+                                                  style="font-size: 18px">{{ number_format(cartTotalAmount()) }}</span> تومان
                                         </span>
                                         </div>
                                         <div class="shopping-cart-btn btn-hover text-center">
