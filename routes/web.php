@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController as HomeCategoryController;
@@ -50,6 +51,7 @@ Route::prefix('admin-panel/')->name('admin.')->group(function () {
     Route::resource('comments', AdminCommentController::class);
     Route::resource('coupons', CouponController::class);
     Route::resource('orders', AdminOrderController::class);
+    Route::resource('transactions', TransactionController::class);
 
     // Comment Change Approve
     Route::get('/comment/{comment}/change-approve', [AdminCommentController::class, 'changeApprove'])->name('comments.change_approve');
