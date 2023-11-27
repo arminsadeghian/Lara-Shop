@@ -194,7 +194,7 @@
                 <div class="col-lg-10 ml-auto mr-auto">
                     <div class="testimonial-active owl-carousel nav-style-1">
                         <div class="single-testimonial text-center">
-                            <img src="{{ asset('/images/testi-1.png') }}" alt=""/>
+                            <img src="{{ asset('/static/files/testi-1.png') }}" alt=""/>
                             <p>
                                 لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
                                 گرافیک
@@ -227,7 +227,7 @@
                                 آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت
                             </p>
                             <div class="client-info">
-                                <img src="assets/img/icon-img/testi.png" alt=""/>
+                                <img src="{{ asset('/static/files/testi.png') }}" alt=""/>
                                 <h5>لورم ایپسوم</h5>
                             </div>
                         </div>
@@ -246,8 +246,7 @@
                             <img src="{{ asset('/static/files/free-shipping.png') }}" alt=""/>
                         </div>
                         <div class="feature-content">
-                            <h4>لورم ایپسوم</h4>
-                            <p>لورم ایپسوم متن ساختگی</p>
+                            <h4>ارسال سریع</h4>
                         </div>
                     </div>
                 </div>
@@ -257,8 +256,7 @@
                             <img src="{{ asset('/static/files/support.png') }}" alt=""/>
                         </div>
                         <div class="feature-content">
-                            <h4>لورم ایپسوم</h4>
-                            <p>24x7 لورم ایپسوم</p>
+                            <h4>پشتیبانی 24 ساعته</h4>
                         </div>
                     </div>
                 </div>
@@ -268,8 +266,7 @@
                             <img src="{{ asset('/static/files/security.png') }}" alt=""/>
                         </div>
                         <div class="feature-content">
-                            <h4>لورم ایپسوم</h4>
-                            <p>لورم ایپسوم متن ساختگی</p>
+                            <h4>امنیت بالا</h4>
                         </div>
                     </div>
                 </div>
