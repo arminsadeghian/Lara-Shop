@@ -13,6 +13,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CommentController as HomeCommentController;
 use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 use App\Http\Controllers\CompareController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController as HomeProductController;
 use App\Http\Controllers\Admin\ProductImageController;
@@ -114,6 +115,7 @@ Route::prefix('profile/')->name('home.')->group(function () {
     Route::get('/', [UserProfileController::class, 'index'])->name('user_profile.index');
     Route::get('/comments', [HomeCommentController::class, 'userProfileCommentsIndex'])->name('user_profile.comments');
     Route::get('/wishlist', [WishlistController::class, 'userProfileWishlistIndex'])->name('user_profile.wishlist');
+    Route::get('/orders', [OrderController::class, 'userProfileOrdersIndex'])->name('user_profile.orders');
     Route::get('/addresses', [UserAddressController::class, 'userAddressesIndex'])->name('user_profile.addresses');
     Route::post('/addresses', [UserAddressController::class, 'store'])->name('user_profile.addresses.store');
     Route::put('/addresses/{address}', [UserAddressController::class, 'update'])->name('user_profile.addresses.update');

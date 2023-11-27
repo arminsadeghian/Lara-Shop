@@ -129,6 +129,7 @@ class PaymentController extends Controller
                 'user_id' => auth()->id(),
                 'address_id' => $addressId,
                 'coupon_id' => getCouponId(),
+                'reference_code' => rand(11111111, 99999999),
                 'total_amount' => $amount['total_amount'],
                 'delivery_amount' => $amount['delivery_amount'],
                 'coupon_amount' => $amount['coupon_amount'],
