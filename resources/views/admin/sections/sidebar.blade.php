@@ -54,17 +54,34 @@
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        تنظیمات
-    </div>
-
     <!-- Nav Item - Brands -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.banners.index') }}">
             <i class="fas fa-image"></i>
             <span> بنر ها </span></a>
     </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Nav Item - Products -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders"
+           aria-expanded="true" aria-controls="collapseOrders">
+            <i class="fas fa-folder"></i>
+            <span> سفارشات </span>
+        </a>
+        <div id="collapseOrders" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('admin.orders.index') }}">سفارشات</a>
+                <a class="collapse-item" href="{{ route('admin.coupons.index') }}">کد تخفیف ها</a>
+                <a class="collapse-item" href="#">تراکنش ها</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
