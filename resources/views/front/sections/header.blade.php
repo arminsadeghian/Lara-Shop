@@ -15,7 +15,7 @@
                         <nav>
                             <ul>
                                 <li class="angle-shape">
-                                    <a href="about_us.html"> ارتباط با ما </a>
+                                    <a href="{{ route('about.index') }}"> ارتباط با ما </a>
                                 </li>
 
                                 <li>
@@ -49,7 +49,7 @@
                                 </li>
 
                                 <li class="angle-shape">
-                                    <a href="index.html"> صفحه اصلی </a>
+                                    <a href="{{ route('home.index') }}"> صفحه اصلی </a>
                                 </li>
                             </ul>
                         </nav>
