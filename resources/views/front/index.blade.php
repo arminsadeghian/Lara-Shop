@@ -369,7 +369,8 @@
                                                            value="1" data-max="5"/>
                                                 </div>
                                                 <div class="pro-details-cart">
-                                                    <button style="width: 280px" type="submit">افزودن به سبد خرید
+                                                    <button style="width: 280px" type="submit">
+                                                        افزودن به سبد خرید
                                                     </button>
                                                 </div>
                                                 <div class="pro-details-wishlist">
