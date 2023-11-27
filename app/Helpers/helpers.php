@@ -57,14 +57,14 @@ function cartTotalDeliveryAmount(): int
 
 function cartTotalAmount()
 {
-    if (session()->has('coupon')) {
+    if (!session()->has('coupon')) {
+        return \Cart::getTotal() + cartTotalDeliveryAmount();
+    } else {
         if (session()->get('coupon.amount') > (\Cart::getTotal() + cartTotalDeliveryAmount())) {
             return 0;
         } else {
             return (\Cart::getTotal() + cartTotalDeliveryAmount()) - session()->get('coupon.amount');
         }
-    } else {
-        return \Cart::getTotal() + cartTotalDeliveryAmount();
     }
 }
 
@@ -114,4 +114,16 @@ function isCouponUsed(int $couponId)
     return Order::where('user_id', auth()->id())
         ->where('coupon_id', $couponId)
         ->where('payment_status', 1)->exists();
+}
+
+function couponAmount()
+{
+    return session()->has('coupon') ? session()->get('coupon.amount') : null;
+}
+
+function getCouponId()
+{
+    return session()->has('coupon')
+        ? Coupon::where('code', session()->get('coupon.code'))->first()->id
+        : null;
 }

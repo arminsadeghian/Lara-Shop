@@ -13,6 +13,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CommentController as HomeCommentController;
 use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 use App\Http\Controllers\CompareController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController as HomeProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\TagController;
@@ -95,6 +96,10 @@ Route::post('/check-coupon', [CartController::class, 'checkCoupon'])->name('home
 
 // Checkout
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('home.checkout.index');
+
+// Payment
+Route::post('/payment', [PaymentController::class, 'payment'])->name('home.payment');
+Route::get('/payment/verify', [PaymentController::class, 'verify'])->name('home.payment.verify');
 
 // OTP Auth
 Route::prefix('user/')->name('user.')->group(function () {

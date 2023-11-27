@@ -22,17 +22,18 @@
 
         @if(\Cart::isEmpty())
             <div class="container cart-empty-content">
-                <div class="row justify-content-center">
+                @include('errors.message')
+                <div class="row justify-content-center mt-4">
                     <div class="col-md-6 text-center">
                         <img src="{{ asset('/static/files/empty-cart.svg') }}" alt="">
-                        <h4 class="font-weight-bold my-4">سبد خرید شما خالی است.</h4>
-                        <a href="{{ route('home.index') }}">بازگشت به فروشگاه</a>
+                        <p style="font-size: 16px" class="font-weight-bold my-4">سبد خرید شما خالی است.</p>
+                        <hr>
+                        <p>می توانید استایل خاص خود را با بهترین کالاهای برندهای جهان بسازید.</p>
                     </div>
                 </div>
             </div>
         @else
             <div class="container">
-                @include('errors.message')
                 <h3 class="cart-page-title font-weight-bold"> سبد خرید شما </h3>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
