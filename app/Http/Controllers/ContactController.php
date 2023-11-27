@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ContactUs;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 
-class ContactUsController extends Controller
+class ContactController extends Controller
 {
     public function index()
     {
@@ -21,7 +21,7 @@ class ContactUsController extends Controller
             'message' => 'required|string',
         ]);
 
-        ContactUs::create([
+        Contact::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'subject' => $validatedData['subject'],

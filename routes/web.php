@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\ContactController as HomeContactController;
+use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Auth\AuthController;
@@ -15,7 +17,6 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CommentController as HomeCommentController;
 use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 use App\Http\Controllers\CompareController;
-use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\OrderController as HomeOrderController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\PaymentController;
@@ -54,6 +55,7 @@ Route::prefix('admin-panel/')->name('admin.')->group(function () {
     Route::resource('coupons', CouponController::class);
     Route::resource('orders', AdminOrderController::class);
     Route::resource('transactions', TransactionController::class);
+    Route::resource('contacts', AdminContactController::class);
 
     // Comment Change Approve
     Route::get('/comment/{comment}/change-approve', [AdminCommentController::class, 'changeApprove'])->name('comments.change_approve');
@@ -76,8 +78,8 @@ Route::prefix('admin-panel/')->name('admin.')->group(function () {
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
 // Contact
-Route::get('/contact', [ContactUsController::class, 'index'])->name('contact.index');
-Route::post('/contact', [ContactUsController::class, 'store'])->name('contact.store');
+Route::get('/contact', [HomeContactController::class, 'index'])->name('contact.index');
+Route::post('/contact', [HomeContactController::class, 'store'])->name('contact.store');
 
 // About
 Route::get('/about', [AboutUsController::class, 'index'])->name('about.index');
