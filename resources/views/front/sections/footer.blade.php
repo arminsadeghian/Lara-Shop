@@ -3,10 +3,10 @@
         <div class="footer-top text-center pt-45 pb-45">
             <nav>
                 <ul>
-                    <li><a href="index.html">صفحه ای اصلی </a></li>
-                    <li><a href="shop.html">فروشگاه </a></li>
-                    <li><a href="contact-us.html">تماس با ما </a></li>
-                    <li><a href="about-us.html">ارتباط با ما </a></li>
+                    <li><a href="{{ route('home.index') }}">صفحه اصلی </a></li>
+                    <li><a href="#">فروشگاه </a></li>
+                    <li><a href="{{ route('contact.index') }}">تماس با ما </a></li>
+                    <li><a href="{{ route('about.index') }}">ارتباط با ما </a></li>
                 </ul>
             </nav>
         </div>
