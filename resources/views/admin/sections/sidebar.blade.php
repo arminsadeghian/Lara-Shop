@@ -1,11 +1,11 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion pr-0" id="accordionSidebar">
 
-    <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <!-- Dashboard -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.dashboard') }}">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">WebProg.ir</div>
+        <div class="sidebar-brand-text mx-3">Admin Panel</div>
     </a>
 
     <!-- Divider -->
@@ -21,11 +21,6 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        فروشگاه
-    </div>
-
     <!-- Nav Item - Brands -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.brands.index') }}">
@@ -37,7 +32,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts"
            aria-expanded="true" aria-controls="collapseProducts">
-            <i class="fas fa-fw fa-cart-plus"></i>
+            <i class="fas fa-shopping-cart"></i>
             <span> محصولات </span>
         </a>
         <div id="collapseProducts" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
@@ -45,39 +40,57 @@
                 <a class="collapse-item" href="{{ route('admin.products.index') }}">محصولات</a>
                 <a class="collapse-item" href="{{ route('admin.attributes.index') }}">ویژگی ها</a>
                 <a class="collapse-item" href="{{ route('admin.categories.index') }}">دسته بندی ها</a>
-                <a class="collapse-item" href="{{ route('admin.tags.index') }}">تگ ها</a>
-                <a class="collapse-item" href="{{ route('admin.comments.index') }}">کامنت ها</a>
             </div>
         </div>
     </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider d-none d-md-block">
-
-    <!-- Nav Item - Brands -->
+    <!-- Nav Item - Banners -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.banners.index') }}">
-            <i class="fas fa-image"></i>
+            <i class="fas fa-images"></i>
             <span> بنر ها </span></a>
     </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
-    <!-- Nav Item - Products -->
+    <!-- Nav Item - Tags -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders"
-           aria-expanded="true" aria-controls="collapseOrders">
-            <i class="fas fa-folder"></i>
-            <span> سفارشات </span>
-        </a>
-        <div id="collapseOrders" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('admin.orders.index') }}">سفارشات</a>
-                <a class="collapse-item" href="{{ route('admin.coupons.index') }}">کد تخفیف ها</a>
-                <a class="collapse-item" href="{{ route('admin.transactions.index') }}">تراکنش ها</a>
-            </div>
-        </div>
+        <a class="nav-link" href="{{ route('admin.tags.index') }}">
+            <i class="fas fa-tags"></i>
+            <span>تگ ها</span></a>
+    </li>
+
+    <!-- Nav Item - Gift -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.coupons.index') }}">
+            <i class="fas fa-gift"></i>
+            <span>کد تخفیف</span></a>
+    </li>
+
+    <!-- Nav Item - Comments -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.comments.index') }}">
+            <i class="fa fa-comment"></i>
+            <span>کامنت ها</span></a>
+    </li>
+
+    <!-- Nav Item - Orders -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.orders.index') }}">
+            <i class="fas fa-money-check"></i>
+            <span>سفارشات</span></a>
+    </li>
+
+    <!-- Nav Item - Transactions -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.transactions.index') }}">
+            <i class="fas fa-credit-card"></i>
+            <span>تراکنش ها</span></a>
+    </li>
+
+    <!-- Nav Item - Contacts -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.contacts.index') }}">
+            <i class="fas fa-comment-alt"></i>
+            <span>پیام های کاربران</span></a>
     </li>
 
     <!-- Divider -->
