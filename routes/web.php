@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BrandController;
@@ -77,6 +78,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index');
 // Contact
 Route::get('/contact', [ContactUsController::class, 'index'])->name('contact.index');
 Route::post('/contact', [ContactUsController::class, 'store'])->name('contact.store');
+
+// About
+Route::get('/about', [AboutUsController::class, 'index'])->name('about.index');
 
 // Category Page
 Route::get('/category/{category:slug}', [HomeCategoryController::class, 'show'])->name('home.categories.show');
