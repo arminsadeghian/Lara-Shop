@@ -14,6 +14,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CommentController as HomeCommentController;
 use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 use App\Http\Controllers\CompareController;
+use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\OrderController as HomeOrderController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\PaymentController;
@@ -72,6 +73,10 @@ Route::prefix('admin-panel/')->name('admin.')->group(function () {
 
 // Home Page
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
+
+// Contact
+Route::get('/contact', [ContactUsController::class, 'index'])->name('contact.index');
+Route::post('/contact', [ContactUsController::class, 'store'])->name('contact.store');
 
 // Category Page
 Route::get('/category/{category:slug}', [HomeCategoryController::class, 'show'])->name('home.categories.show');

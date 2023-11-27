@@ -218,6 +218,8 @@ return [
         'address' => 'آدرس',
         'postal_code' => 'کد پستی',
         'city_id' => 'انتخاب شهر',
+        'subject' => 'عنوان',
+        'message' => 'پیام',
     ],
 
 ];
