@@ -1,32 +1,32 @@
 <?php
 
-use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\ContactController as HomeContactController;
+use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\CouponController;
-use App\Http\Controllers\Admin\TransactionController;
-use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\CategoryController as HomeCategoryController;
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\CommentController as HomeCommentController;
-use App\Http\Controllers\Admin\CommentController as AdminCommentController;
-use App\Http\Controllers\CompareController;
-use App\Http\Controllers\OrderController as HomeOrderController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\ProductController as HomeProductController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\TagController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\UserAddressController;
-use App\Http\Controllers\UserProfileController;
-use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Home\AboutUsController;
+use App\Http\Controllers\Home\CartController;
+use App\Http\Controllers\Home\CategoryController as HomeCategoryController;
+use App\Http\Controllers\Home\CheckoutController;
+use App\Http\Controllers\Home\CommentController as HomeCommentController;
+use App\Http\Controllers\Home\CompareController;
+use App\Http\Controllers\Home\ContactController as HomeContactController;
+use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\Home\OrderController as HomeOrderController;
+use App\Http\Controllers\Home\PaymentController;
+use App\Http\Controllers\Home\ProductController as HomeProductController;
+use App\Http\Controllers\Home\UserAddressController;
+use App\Http\Controllers\Home\UserProfileController;
+use App\Http\Controllers\Home\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
