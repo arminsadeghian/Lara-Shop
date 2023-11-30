@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
@@ -40,10 +41,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/admin-panel/dashboard', function () {
-    return view('admin.dashboard');
-})->name('admin.dashboard');
-
 Route::prefix('admin-panel/')->name('admin.')->group(function () {
     Route::resource('brands', BrandController::class);
     Route::resource('attributes', AttributeController::class);
@@ -56,6 +53,9 @@ Route::prefix('admin-panel/')->name('admin.')->group(function () {
     Route::resource('orders', AdminOrderController::class);
     Route::resource('transactions', TransactionController::class);
     Route::resource('contacts', AdminContactController::class);
+
+    // Dashboard
+    Route::get('dashboard', [DashboardController::class, 'show'])->name('dashboard');
 
     // Comment Change Approve
     Route::get('/comment/{comment}/change-approve', [AdminCommentController::class, 'changeApprove'])->name('comments.change_approve');
