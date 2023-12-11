@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        if ($request->method() == 'GET') {
+        if ($request->method() == 'GET' && auth()->check() == false) {
             return view('auth.login');
         }
 
