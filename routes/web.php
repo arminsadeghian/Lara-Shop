@@ -13,7 +13,8 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\TransactionController;
-use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\AdminAuthController;
+use App\Http\Controllers\Auth\UserAuthController;
 use App\Http\Controllers\Home\AboutUsController;
 use App\Http\Controllers\Home\CartController;
 use App\Http\Controllers\Home\CategoryController as HomeCategoryController;
@@ -119,14 +120,22 @@ Route::get('/payment/verify', [PaymentController::class, 'verify'])->name('home.
 
 // OTP Auth
 Route::prefix('user/')->name('user.')->group(function () {
-    Route::any('login', [AuthController::class, 'login'])->name('login');
-    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
-    Route::post('check-otp', [AuthController::class, 'checkOtp'])->name('check_otp');
-    Route::post('resend-otp', [AuthController::class, 'resendOtp'])->name('resend_otp');
+    Route::any('login', [UserAuthController::class, 'login'])->name('login');
+    Route::get('logout', [UserAuthController::class, 'logout'])->name('logout');
+    Route::post('check-otp', [UserAuthController::class, 'checkOtp'])->name('check_otp');
+    Route::post('resend-otp', [UserAuthController::class, 'resendOtp'])->name('resend_otp');
+});
+
+// Admin OTP Auth
+Route::prefix('admin/')->name('admin.')->group(function () {
+    Route::any('login', [AdminAuthController::class, 'login'])->name('login');
+    Route::post('check-otp', [AdminAuthController::class, 'checkOtp'])->name('check_otp');
+    Route::post('resend-otp', [AdminAuthController::class, 'resendOtp'])->name('resend_otp');
+    Route::get('logout', [AdminAuthController::class, 'logout'])->name('logout');
 });
 
 // User Profile
-Route::prefix('profile/')->name('home.')->group(function () {
+Route::prefix('profile/')->middleware('auth')->name('home.')->group(function () {
     Route::get('/', [UserProfileController::class, 'index'])->name('user_profile.index');
     Route::get('/comments', [HomeCommentController::class, 'userProfileCommentsIndex'])->name('user_profile.comments');
     Route::get('/wishlist', [WishlistController::class, 'userProfileWishlistIndex'])->name('user_profile.wishlist');

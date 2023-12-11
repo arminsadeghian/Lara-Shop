@@ -100,6 +100,13 @@
             <span>پیام های کاربران</span></a>
     </li>
 
+    <!-- Nav Item - Exit -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.logout') }}">
+            <i class="fas fa-sign-out-alt" style="font-size: 18px"></i>
+            <span>خروج</span></a>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider">
 

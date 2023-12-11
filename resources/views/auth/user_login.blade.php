@@ -160,7 +160,7 @@
                                             </div>
 
                                             <div class="button-box d-flex justify-content-between">
-                                                <button type="submit">ارسال</button>
+                                                <button id="sendCellphoneBtn" type="submit">ارسال</button>
                                             </div>
                                         </form>
                                         <form id="checkOtpForm">
@@ -178,7 +178,7 @@
                                             </div>
 
                                             <div class="button-box d-flex justify-content-between">
-                                                <button type="submit">ورود</button>
+                                                <button id="loginBtn" type="submit">ورود</button>
                                                 <div>
                                                     <button id="resendOTPButton" type="submit">ارسال مجدد</button>
                                                     <span id="resendOTPTime"></span>

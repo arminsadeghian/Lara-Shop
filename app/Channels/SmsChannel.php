@@ -9,6 +9,8 @@ class SmsChannel
 {
     public function send($notifiable, Notification $notification)
     {
+        return 'OK';
+
         $receptor = $notifiable->cellphone;
         $template = 'otp';
         GhasedakFacade::setVerifyType(GhasedakFacade::VERIFY_MESSAGE_TEXT)
