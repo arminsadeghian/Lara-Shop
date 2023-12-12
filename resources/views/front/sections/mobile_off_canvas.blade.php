@@ -20,7 +20,7 @@
                 <nav>
                     <ul class="mobile-menu text-right">
                         <li class="menu-item-has-children">
-                            <a href="index.html"> صفحه ای اصلی </a>
+                            <a href="{{ route('home.index') }}"> صفحه ای اصلی </a>
                         </li>
                         <li class="menu-item-has-children">
                             <a href="#">فروشگاه</a>
@@ -35,7 +35,7 @@
                                     <li class="menu-item-has-children">
                                         <a href="#">{{ $parentCategory->name }}</a>
 
-                                        @foreach($parentCategory->children as $category)
+                                        @foreach($parentCategory->activeCategories()->get() as $category)
                                             <ul class="dropdown">
                                                 <li>
                                                     <a href="{{ route('home.categories.show', $category->slug) }}">{{ $category->name }}</a>
@@ -49,9 +49,9 @@
                             </ul>
                         </li>
 
-                        <li><a href="contact-us.html">تماس با ما</a></li>
+                        <li><a href="{{ route('contact.index') }}">تماس با ما</a></li>
 
-                        <li><a href="about_us.html"> در باره ما</a></li>
+                        <li><a href="{{ route('about.index') }}"> در باره ما</a></li>
                     </ul>
                 </nav>
                 <!-- mobile menu navigation end -->
@@ -61,13 +61,15 @@
 
         <div class="mobile-curr-lang-wrap">
             <div class="single-mobile-curr-lang">
-                <ul class="text-right">
-                    <li class="my-3"><a href="login.html"> ورود </a></li>
-                    <li class="my-3">
-                        <a href="register.html"> ایجاد حساب </a>
-                    </li>
-                    <li class="my-3"><a href="my-account.html"> پروفایل </a></li>
-                </ul>
+                @if(auth()->check())
+                    <div class="setting-wrap">
+                        <a href="{{ route('home.user_profile.index') }}">
+                            <i style="font-size: 18px;" class="sli sli-user"></i>
+                        </a>
+                    </div>
+                @else
+                    <a class="ml-4" href="{{ route('user.login') }}">وارد شوید</a>
+                @endif
             </div>
         </div>
 

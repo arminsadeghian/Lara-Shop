@@ -16,6 +16,11 @@ class Category extends Model
         return $is_active == 1 ? 'فعال' : 'غیرفعال';
     }
 
+    public function activeCategories()
+    {
+        return $this->children()->where('is_active', 1);
+    }
+
     public function parent()
     {
         return $this->belongsTo(Category::class, 'parent_id');
