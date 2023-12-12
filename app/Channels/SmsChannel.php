@@ -9,7 +9,7 @@ class SmsChannel
 {
     public function send($notifiable, Notification $notification)
     {
-        return 'OK';
+//        return 'OK';
 
         $receptor = $notifiable->cellphone;
         $template = 'otp';
