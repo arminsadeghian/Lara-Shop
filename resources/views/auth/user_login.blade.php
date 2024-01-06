@@ -16,6 +16,16 @@
             event.preventDefault();
             let cellphone = $('#cellphoneInput').val();
 
+            $('#sendCellphoneBtn').on('click', function () {
+                $(this).prop('disabled', true);
+                $('#sendCellphoneBtn').css('cursor', 'default');
+            });
+
+            $('#resendOTPButton').on('click', function () {
+                $(this).prop('disabled', true);
+                $('#resendOTPButton').css('cursor', 'default');
+            });
+
             $.ajax({
                 type: "POST",
                 url: "{{ route('user.login') }}",
@@ -26,8 +36,8 @@
                 success: function (response, status) {
                     loginToken = response.login_token;
                     if (status == 'success') {
-                        $('#loginForm').fadeOut();
-                        $('#checkOtpForm').fadeIn();
+                        $('#loginForm').hide();
+                        $('#checkOtpForm').show();
                         $('#cellphone').html(response.cellphone);
 
                         timer();
@@ -96,7 +106,7 @@
         });
 
         function timer() {
-            let time = "1:01";
+            let time = "2:01";
             let interval = setInterval(function () {
                 let countdown = time.split(':');
                 let minutes = parseInt(countdown[0], 10);
