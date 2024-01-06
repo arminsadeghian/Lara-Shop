@@ -43,6 +43,7 @@ class ProductController extends Controller
             $primaryImageFileName = $productImageController->upload($validatedData['primary_image']);
             $imagesFileName = $productImageController->uploadMany($validatedData['images']);
 
+            // Store product in database
             $product = Product::create([
                 'category_id' => $validatedData['category_id'],
                 'brand_id' => $validatedData['brand_id'],
@@ -54,6 +55,7 @@ class ProductController extends Controller
                 'delivery_amount_per_product' => $validatedData['delivery_amount_per_product'],
             ]);
 
+            // Store product images in database
             foreach ($imagesFileName['imagesFileName'] as $image) {
                 ProductImage::create([
                     'product_id' => $product->id,
@@ -61,17 +63,18 @@ class ProductController extends Controller
                 ]);
             }
 
-            $productAttributeController = new ProductAttributeController();
-            $productAttributeController->store($validatedData['attribute_ids'], $product->id);
+            // Store product attributes in database
+            (new ProductAttributeController())->store($validatedData['attribute_ids'], $product->id);
 
+            // Store product variations in database
             $category = Category::find($validatedData['category_id']);
-            $productVariationController = new ProductVariationController();
-            $productVariationController->store(
+            (new ProductVariationController())->store(
                 $validatedData['variation_values'],
                 $category->attributes()->wherePivot('is_variation', 1)->first()->id,
                 $product
             );
 
+            // Store product tags in database
             $product->tags()->attach($validatedData['tag_ids']);
 
             DB::commit();
@@ -110,6 +113,7 @@ class ProductController extends Controller
         try {
             DB::beginTransaction();
 
+            // Update product
             $product->update([
                 'brand_id' => $validatedData['brand_id'],
                 'name' => $validatedData['name'],
@@ -119,12 +123,13 @@ class ProductController extends Controller
                 'delivery_amount_per_product' => $validatedData['delivery_amount_per_product'],
             ]);
 
-            $productAttributeController = new ProductAttributeController();
-            $productAttributeController->update($validatedData['attribute_values']);
+            // Update product attributes
+            (new ProductAttributeController())->update($validatedData['attribute_values']);
 
-            $productVariationController = new ProductVariationController();
-            $productVariationController->update($validatedData['variation_values']);
+            // Update product variations
+            (new ProductVariationController())->update($validatedData['variation_values']);
 
+            // Update product tags
             $product->tags()->sync($validatedData['tag_ids']);
 
             DB::commit();
