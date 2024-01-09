@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Utils\ProductImageUploader;
 use Illuminate\Http\Request;
 
 class ProductImageController extends Controller
 {
     public function upload($primaryImage): array
     {
-        $primaryImageFileName = fileNameToHash($primaryImage->getClientOriginalName());
-        $primaryImage->move(public_path('\images\products'), $primaryImageFileName);
+        $primaryImageFileName = ProductImageUploader::upload($primaryImage);
 
         return [
             'primaryImageFileName' => $primaryImageFileName,
@@ -23,8 +23,7 @@ class ProductImageController extends Controller
     {
         $imagesFileName = [];
         foreach ($images as $image) {
-            $imageFileName = fileNameToHash($image->getClientOriginalName());
-            $image->move(public_path('\images\products'), $imageFileName);
+            $imageFileName = ProductImageUploader::upload($image);
             $imagesFileName[] = $imageFileName;
         }
 
@@ -63,8 +62,7 @@ class ProductImageController extends Controller
         }
 
         if ($request->has('primary_image')) {
-            $primaryImageFileName = fileNameToHash($validatedData['primary_image']->getClientOriginalName());
-            $validatedData['primary_image']->move(public_path('\images\products'), $primaryImageFileName);
+            $primaryImageFileName = ProductImageUploader::upload($validatedData['primary_image']);
             $product->update([
                 'primary_image' => $primaryImageFileName
             ]);
@@ -72,8 +70,7 @@ class ProductImageController extends Controller
 
         if ($request->has('images')) {
             foreach ($validatedData['images'] as $image) {
-                $imageFileName = fileNameToHash($image->getClientOriginalName());
-                $image->move(public_path('\images\products'), $imageFileName);
+                $imageFileName = ProductImageUploader::upload($image);
                 ProductImage::create([
                     'product_id' => $product->id,
                     'image' => $imageFileName
