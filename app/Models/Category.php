@@ -26,6 +26,11 @@ class Category extends Model
         return $this->where('parent_id', 0)->get();
     }
 
+    public function getAllCategoriesWithoutParents()
+    {
+        return $this->where('parent_id', '!=', 0)->get();
+    }
+
     public function getCategoryAttributes()
     {
         return $this->attributes()->wherePivot('is_variation', 0)->get();

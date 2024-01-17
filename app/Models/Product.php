@@ -174,4 +174,19 @@ class Product extends Model
             ->where('user_id', $userId)
             ->exists();
     }
+
+    public function getProductAttributes()
+    {
+        return $this->attributes()->with('attribute')->get();
+    }
+
+    public function getProductVariations()
+    {
+        return $this->variations;
+    }
+
+    public function getProductImages()
+    {
+        return $this->images;
+    }
 }

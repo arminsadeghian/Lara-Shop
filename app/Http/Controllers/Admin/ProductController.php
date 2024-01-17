@@ -23,11 +23,11 @@ class ProductController extends Controller
         return view('admin.products.index', compact('products'));
     }
 
-    public function create()
+    public function create(Category $category)
     {
         $brands = Brand::all();
         $tags = Tag::all();
-        $categories = Category::where('parent_id', '!=', 0)->get();
+        $categories = $category->getAllCategoriesWithoutParents();
 
         return view('admin.products.create', compact('brands', 'tags', 'categories'));
     }
@@ -88,20 +88,20 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        $productAttributes = $product->attributes()->with('attribute')->get();
-        $productVariations = $product->variations;
-        $productImages = $product->images;
+        $productAttributes = $product->getProductAttributes();
+        $productVariations = $product->getProductVariations();
+        $productImages = $product->getProductImages();
 
         return view('admin.products.show', compact('product', 'productAttributes', 'productVariations', 'productImages'));
     }
 
-    public function edit(Product $product)
+    public function edit(Product $product, Category $category)
     {
         $brands = Brand::all();
         $tags = Tag::all();
-        $categories = Category::where('parent_id', '!=', 0)->get();
-        $productAttributes = $product->attributes()->with('attribute')->get();
-        $productVariations = $product->variations;
+        $categories = $category->getAllCategoriesWithoutParents();
+        $productAttributes = $product->getProductAttributes();
+        $productVariations = $product->getProductVariations();
 
         return view('admin.products.edit', compact('product', 'brands', 'tags', 'categories', 'productAttributes', 'productVariations'));
     }
@@ -144,41 +144,4 @@ class ProductController extends Controller
     {
         //
     }
-
-    public function editCategory(Product $product)
-    {
-        $categories = Category::where('parent_id', '!=', 0)->get();
-        return view('admin.products.edit_category', compact('product', 'categories'));
-    }
-
-    public function updateCategory(UpdateProductCategoryRequest $request, Product $product)
-    {
-        $validatedData = $request->validated();
-
-        try {
-            DB::beginTransaction();
-
-            $product->update([
-                'category_id' => $validatedData['category_id'],
-            ]);
-
-            $productAttributeController = new ProductAttributeController();
-            $productAttributeController->change($validatedData['attribute_ids'], $product);
-
-            $category = Category::find($validatedData['category_id']);
-            $productVariationController = new ProductVariationController();
-            $productVariationController->change(
-                $validatedData['variation_values'],
-                $category->attributes()->wherePivot('is_variation', 1)->first()->id,
-                $product
-            );
-
-            DB::commit();
-
-            return back()->with('success', 'دسته بندی مورد نظر ویرایش شد');
-        } catch (\Exception $e) {
-            return back()->with('failed', 'مشکلی در ویرایش دسته بندی به وجود آمده، لطفا دوباره تلاش کنید!');
-        }
-    }
-
 }

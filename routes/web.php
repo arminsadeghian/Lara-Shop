@@ -62,9 +62,6 @@ Route::prefix('admin-panel/')->name('admin.')->group(function () {
     // Comment Change Approve
     Route::get('/comment/{comment}/change-approve', [AdminCommentController::class, 'changeApprove'])->name('comments.change_approve');
 
-    // Get category attributes
-    Route::get('/category-attributes/{category}', [ProductCategoryController::class, 'getCategoryAttributes']);
-
     // Edit product images
     Route::get('/products/{product}/images-edit', [ProductImageController::class, 'edit'])->name('products.images.edit');
     Route::delete('/products/{product}/images-destroy', [ProductImageController::class, 'destroy'])->name('products.images.destroy');
@@ -72,8 +69,9 @@ Route::prefix('admin-panel/')->name('admin.')->group(function () {
     Route::put('/products/{product}/images-add', [ProductImageController::class, 'add'])->name('products.images.add');
 
     // Edit product category
-    Route::get('/products/{product}/category-edit', [ProductController::class, 'editCategory'])->name('products.category.edit');
-    Route::put('/products/{product}/category-update', [ProductController::class, 'updateCategory'])->name('products.category.update');
+    Route::get('/category-attributes/{category}', [ProductCategoryController::class, 'getCategoryAttributes']);
+    Route::get('/products/{product}/category-edit', [ProductCategoryController::class, 'editCategory'])->name('products.category.edit');
+    Route::put('/products/{product}/category-update', [ProductCategoryController::class, 'updateCategory'])->name('products.category.update');
 });
 
 // Home Page
