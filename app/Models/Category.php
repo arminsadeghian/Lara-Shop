@@ -21,6 +21,21 @@ class Category extends Model
         return $this->children()->where('is_active', 1);
     }
 
+    public function getParentCategories()
+    {
+        return $this->where('parent_id', 0)->get();
+    }
+
+    public function getCategoryAttributes()
+    {
+        return $this->attributes()->wherePivot('is_variation', 0)->get();
+    }
+
+    public function getCategoryVariation()
+    {
+        return $this->attributes()->wherePivot('is_variation', 1)->get();
+    }
+
     public function parent()
     {
         return $this->belongsTo(Category::class, 'parent_id');

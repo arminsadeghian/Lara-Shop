@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\TagController;
@@ -62,7 +63,7 @@ Route::prefix('admin-panel/')->name('admin.')->group(function () {
     Route::get('/comment/{comment}/change-approve', [AdminCommentController::class, 'changeApprove'])->name('comments.change_approve');
 
     // Get category attributes
-    Route::get('/category-attributes/{category}', [CategoryController::class, 'getCategoryAttributes']);
+    Route::get('/category-attributes/{category}', [ProductCategoryController::class, 'getCategoryAttributes']);
 
     // Edit product images
     Route::get('/products/{product}/images-edit', [ProductImageController::class, 'edit'])->name('products.images.edit');

@@ -19,9 +19,9 @@ class CategoryController extends Controller
         return view('admin.categories.index', compact('categories'));
     }
 
-    public function create()
+    public function create(Category $category)
     {
-        $parentCategories = Category::where('parent_id', 0)->get();
+        $parentCategories = $category->getParentCategories();
         $attributes = Attribute::all();
 
         return view('admin.categories.create', compact('parentCategories', 'attributes'));
@@ -34,6 +34,7 @@ class CategoryController extends Controller
         try {
             DB::beginTransaction();
 
+            // Store category in database
             $category = Category::create([
                 'parent_id' => $validatedData['parent_id'],
                 'name' => $validatedData['name'],
@@ -43,6 +44,7 @@ class CategoryController extends Controller
                 'icon' => $validatedData['icon'],
             ]);
 
+            // Store category attributes in database
             foreach ($validatedData['attribute_ids'] as $attributeId) {
                 $attribute = Attribute::findOrFail($attributeId);
                 $attribute->categories()->attach($category->id, [
@@ -68,7 +70,7 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        $parentCategories = Category::where('parent_id', 0)->get();
+        $parentCategories = $category->getParentCategories();
         $attributes = Attribute::all();
 
         return view('admin.categories.edit', compact('category', 'parentCategories', 'attributes'));
@@ -81,6 +83,7 @@ class CategoryController extends Controller
         try {
             DB::beginTransaction();
 
+            // Update category in database
             $category->update([
                 'parent_id' => $validatedData['parent_id'],
                 'name' => $validatedData['name'],
@@ -90,8 +93,10 @@ class CategoryController extends Controller
                 'icon' => $validatedData['icon'],
             ]);
 
+            // Delete all category attributes from database
             $category->attributes()->detach();
 
+            // Create category attributes
             foreach ($validatedData['attribute_ids'] as $attributeId) {
                 $attribute = Attribute::findOrFail($attributeId);
                 $attribute->categories()->attach($category->id, [
@@ -112,16 +117,5 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-    public function getCategoryAttributes(Category $category)
-    {
-        $attributes = $category->attributes()->wherePivot('is_variation', 0)->get();
-        $variation = $category->attributes()->wherePivot('is_variation', 1)->get();
-
-        return [
-            'attributes' => $attributes,
-            'variation' => $variation,
-        ];
     }
 }
