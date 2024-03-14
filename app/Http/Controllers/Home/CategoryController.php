@@ -10,19 +10,19 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         $products = $category->products()
-            ->where('is_active', 1)
+            ->active()
             ->filter()
             ->search()
             ->paginate(9);
 
         $attributes = $category->attributes()
-            ->where('is_filter', 1)
             ->with('values')
+            ->isFilter()
             ->get();
 
         $variation = $category->attributes()
-            ->where('is_variation', 1)
             ->with('variationValues')
+            ->isVariation()
             ->first();
 
         return view('front.categories.show', compact('category', 'products', 'attributes', 'variation'));

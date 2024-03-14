@@ -42,8 +42,8 @@
                         <td>{{ $product->brand->name }}</td>
                         <td>{{ $product->category->name . ' - ' . $product->category->parent->name }}</td>
                         <td>
-                            <span class="{{ $product->is_active == 'فعال' ? 'text-success' : 'text-danger' }}">
-                                {{ $product->is_active }}
+                            <span class="{{ $product->show_status_in_admin == 'فعال' ? 'text-success' : 'text-danger' }}">
+                                {{ $product->show_status_in_admin }}
                             </span>
                         </td>
                         <td>
@@ -59,7 +59,8 @@
                                     <a class="dropdown-item text-right"
                                        href="{{ route('admin.products.images.edit', $product->id) }}">ویرایش تصاویر</a>
                                     <a class="dropdown-item text-right"
-                                       href="{{ route('admin.products.category.edit', $product->id) }}">ویرایش دسته بندی و ویژگی</a>
+                                       href="{{ route('admin.products.category.edit', $product->id) }}">ویرایش دسته بندی
+                                        و ویژگی</a>
                                 </div>
                             </div>
                         </td>

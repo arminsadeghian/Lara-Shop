@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use function Laravel\Prompts\search;
 
 class Product extends Model
 {
@@ -23,9 +23,15 @@ class Product extends Model
         ];
     }
 
-    public function getIsActiveAttribute($is_active): string
+    public function scopeActive(Builder $query)
     {
-        return $is_active == 1 ? 'فعال' : 'غیرفعال';
+        $query->where('is_active', 1);
+    }
+
+    // For show product status in admin panel
+    public function getShowStatusInAdminAttribute()
+    {
+        return $this->is_active == 1 ? 'فعال' : 'غیرفعال';
     }
 
     public function getQuantityCheckAttribute()
