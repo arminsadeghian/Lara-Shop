@@ -22,11 +22,9 @@ class AttributeController extends Controller
 
     public function store(StoreAttributeRequest $request)
     {
-        $validatedData = $request->validated();
+        $request->validated();
 
-        Attribute::create([
-            'name' => $validatedData['name']
-        ]);
+        Attribute::create($request->all());
 
         return back()->with('success', 'ویژگی مورد نظر ایجاد شد');
     }
@@ -43,11 +41,9 @@ class AttributeController extends Controller
 
     public function update(UpdateAttributeRequest $request, Attribute $attribute)
     {
-        $validatedData = $request->validated();
+        $request->validated();
 
-        $attribute->update([
-            'name' => $validatedData['name']
-        ]);
+        $attribute->update($request->all());
 
         return back()->with('success', 'ویژگی مورد نظر ویرایش شد');
     }
