@@ -50,8 +50,10 @@ class TagController extends Controller
         return back()->with('success', 'تگ مورد نظر ویرایش شد');
     }
 
-    public function destroy(string $id)
+    public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+
+        return back()->with('success', 'تگ مورد نظر حذف شد');
     }
 }
