@@ -31,4 +31,9 @@ class User extends Authenticatable
     protected $hidden = [
         'remember_token',
     ];
+
+    public function getCreatedAtAttribute($value)
+    {
+        return verta($value);
+    }
 }

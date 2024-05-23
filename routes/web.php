@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Controllers\Auth\UserAuthController;
 use App\Http\Controllers\Home\AboutUsController;
@@ -55,6 +56,7 @@ Route::prefix('admin-panel/')->name('admin.')->group(function () {
     Route::resource('orders', AdminOrderController::class);
     Route::resource('transactions', TransactionController::class);
     Route::resource('contacts', AdminContactController::class);
+    Route::resource('users', UserController::class);
 
     // Dashboard
     Route::get('dashboard', [DashboardController::class, 'show'])->name('dashboard');

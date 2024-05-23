@@ -28,6 +28,13 @@
             <span> برند ها </span></a>
     </li>
 
+    <!-- Nav Item - Users -->
+    <li class="nav-item {{ request()->is('admin-panel/users') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.users.index') }}">
+            <i class="fas fa-user"></i>
+            <span>کاربران</span></a>
+    </li>
+
     <!-- Nav Item - Products -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts"
