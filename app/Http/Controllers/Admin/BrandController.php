@@ -49,8 +49,10 @@ class BrandController extends Controller
         return back()->with('success', 'برند مورد نظر ویرایش شد');
     }
 
-    public function destroy(string $id)
+    public function destroy(Brand $brand)
     {
-        //
+        $brand->delete();
+
+        return back()->with('success', 'برند مورد نظر حذف شد');
     }
 }

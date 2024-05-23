@@ -9,6 +9,9 @@
     <div class="row">
 
         <div class="col-xl-12 col-md-12 mb-4 p-md-5 bg-white">
+
+            @include('errors.message')
+
             <div class="d-flex justify-content-between mb-4">
                 <h5 class="font-weight-bold">همه برند ها</h5>
                 <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.brands.create') }}">
@@ -44,6 +47,13 @@
                                href="{{ route('admin.brands.show', $brand->id) }}">نمایش</a>
                             <a class="btn btn-sm btn-outline-primary"
                                href="{{ route('admin.brands.edit', $brand->id) }}">ویرایش</a>
+                            <form style="display: inline"
+                                  action="{{ route('admin.brands.destroy', $brand->id) }}"
+                                  method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-sm btn-outline-danger" type="submit">حذف</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
