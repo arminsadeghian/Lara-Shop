@@ -48,8 +48,10 @@ class AttributeController extends Controller
         return back()->with('success', 'ویژگی مورد نظر ویرایش شد');
     }
 
-    public function destroy(string $id)
+    public function destroy(Attribute $attribute)
     {
-        //
+        $attribute->delete();
+
+        return back()->with('success', 'ویژگی مورد نظر حذف شد');
     }
 }
