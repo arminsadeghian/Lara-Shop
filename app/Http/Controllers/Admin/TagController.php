@@ -13,6 +13,7 @@ class TagController extends Controller
     public function index()
     {
         $tags = Tag::latest()->paginate(20);
+
         return view('admin.tags.index', compact('tags'));
     }
 
@@ -23,11 +24,9 @@ class TagController extends Controller
 
     public function store(StoreTagRequest $request)
     {
-        $validatedData = $request->validated();
+        $request->validated();
 
-        Tag::create([
-            'name' => $validatedData['name']
-        ]);
+        Tag::create($request->all());
 
         return back()->with('success', 'تگ مورد نظر ایجاد شد');
     }
@@ -44,11 +43,9 @@ class TagController extends Controller
 
     public function update(UpdateTagRequest $request, Tag $tag)
     {
-        $validatedData = $request->validated();
+        $request->validated();
 
-        $tag->update([
-            'name' => $validatedData['name']
-        ]);
+        $tag->update($request->all());
 
         return back()->with('success', 'تگ مورد نظر ویرایش شد');
     }
