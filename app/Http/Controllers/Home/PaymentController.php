@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Events\CreatedOrder;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\ProductVariation;
 use App\Models\Transaction;
-use App\Models\User;
-use App\Notifications\PaymentReceiptSmsNotification;
 use App\Payment\Zarinpal;
 use Cart;
-use Ghasedak\Laravel\GhasedakFacade;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -73,8 +71,9 @@ class PaymentController extends Controller
             Cart::clear();
             session()->forget('coupon');
 
-            $user = User::findOrFail(auth()->id());
-            $user->notify(new PaymentReceiptSmsNotification($result["RefID"]));
+            $user = getCurrentUser();
+
+            event(new CreatedOrder($user, $result['RefID']));
 
             return redirect()->route('home.cart.index')->with('success', $updateOrder['success']);
         } else {

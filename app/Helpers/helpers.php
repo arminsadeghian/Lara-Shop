@@ -2,6 +2,7 @@
 
 use App\Models\Coupon;
 use App\Models\Order;
+use App\Models\User;
 use Carbon\Carbon;
 
 if (!function_exists('productImageUrl')) {
@@ -149,5 +150,12 @@ if (!function_exists('getCouponId')) {
         return session()->has('coupon')
             ? Coupon::where('code', session()->get('coupon.code'))->first()->id
             : null;
+    }
+}
+
+if (!function_exists('getCurrentUser')) {
+    function getCurrentUser()
+    {
+        return User::findOrFail(auth()->id());
     }
 }
