@@ -10,7 +10,7 @@ class Brand extends Model
 {
     use HasFactory, Sluggable;
 
-    protected $guarded = [];
+    protected $fillable = ['name', 'is_active'];
 
     public function sluggable(): array
     {

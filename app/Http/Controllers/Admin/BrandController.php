@@ -12,6 +12,7 @@ class BrandController extends Controller
     public function index()
     {
         $brands = Brand::latest()->paginate(20);
+
         return view('admin.brands.index', compact('brands'));
     }
 
@@ -22,12 +23,9 @@ class BrandController extends Controller
 
     public function store(StoreBrandRequest $request)
     {
-        $validatedData = $request->validated();
+        $request->validated();
 
-        Brand::create([
-            'name' => $validatedData['name'],
-            'is_active' => $validatedData['is_active'],
-        ]);
+        Brand::create($request->all());
 
         return back()->with('success', 'برند مورد نظر ایجاد شد');
     }
@@ -44,12 +42,9 @@ class BrandController extends Controller
 
     public function update(UpdateBrandRequest $request, Brand $brand)
     {
-        $validatedData = $request->validated();
+        $request->validated();
 
-        $brand->update([
-            'name' => $validatedData['name'],
-            'is_active' => $validatedData['is_active'],
-        ]);
+        $brand->update($request->all());
 
         return back()->with('success', 'برند مورد نظر ویرایش شد');
     }
