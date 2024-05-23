@@ -53,6 +53,8 @@ class DashboardController extends Controller
             return $item->amount;
         });
 
+        $result = [];
+
         foreach ($monthName as $i => $v) {
             if (!isset($result[$v])) {
                 $result[$v] = 0;
