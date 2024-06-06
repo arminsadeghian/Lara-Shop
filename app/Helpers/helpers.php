@@ -15,7 +15,7 @@ if (!function_exists('productImageUrl')) {
 if (!function_exists('bannerImageUrl')) {
     function bannerImageUrl($image)
     {
-        return url('/images/banners/' . $image);
+        return url('/banners/' . $image);
     }
 }
 

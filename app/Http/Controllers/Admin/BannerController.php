@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Banners\StoreBannerRequest;
 use App\Http\Requests\Admin\Banners\UpdateBannerRequest;
 use App\Models\Banner;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BannerController extends Controller
 {
@@ -23,21 +23,20 @@ class BannerController extends Controller
 
     public function store(StoreBannerRequest $request)
     {
-        $validatedData = $request->validated();
+        $request->validated();
 
-        $imageFileName = fileNameToHash($validatedData['image']->getClientOriginalName());
-        $validatedData['image']->move(public_path('\images\banners'), $imageFileName);
+        $imageName = Storage::disk('banner')->putFile('', $request->image);
 
         Banner::create([
-            'image' => $imageFileName,
-            'title' => $validatedData['title'],
-            'text' => $validatedData['text'],
-            'priority' => $validatedData['priority'],
-            'is_active' => $validatedData['is_active'],
-            'type' => $validatedData['type'],
-            'button_text' => $validatedData['button_text'],
-            'button_link' => $validatedData['button_link'],
-            'button_icon' => $validatedData['button_icon'],
+            'image' => $imageName,
+            'title' => $request->title,
+            'text' => $request->text,
+            'priority' => $request->priority,
+            'is_active' => $request->is_active,
+            'type' => $request->type,
+            'button_text' => $request->button_text,
+            'button_link' => $request->button_link,
+            'button_icon' => $request->button_icon,
         ]);
 
         return back()->with('success', 'بنر مورد نظر ایجاد شد');
@@ -58,10 +57,10 @@ class BannerController extends Controller
         $validatedData = $request->validated();
 
         if ($request->has('image')) {
-            $imageFileName = fileNameToHash($validatedData['image']->getClientOriginalName());
-            $validatedData['image']->move(public_path('\images\banners'), $imageFileName);
+            $imageName = Storage::disk('banner')->putFile('', $request->image);
+
             $banner->update([
-                'image' => $imageFileName,
+                'image' => $imageName,
             ]);
         }
 
@@ -79,8 +78,10 @@ class BannerController extends Controller
         return back()->with('success', 'بنر مورد نظر ویرایش شد');
     }
 
-    public function destroy(string $id)
+    public function destroy(Banner $banner)
     {
-        //
+        $banner->delete();
+
+        return back()->with('success', 'بنر مورد نظر حذف شد');
     }
 }

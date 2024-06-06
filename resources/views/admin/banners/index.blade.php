@@ -58,6 +58,12 @@
                                href="{{ route('admin.banners.show', $banner->id) }}">نمایش</a>
                             <a class="btn btn-sm btn-outline-primary"
                                href="{{ route('admin.banners.edit', $banner->id) }}">ویرایش</a>
+                            <form style="display: inline" action="{{ route('admin.banners.destroy', $banner->id) }}"
+                                  method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-outline-primary">حذف</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
